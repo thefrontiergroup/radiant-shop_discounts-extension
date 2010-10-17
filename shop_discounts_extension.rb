@@ -16,8 +16,19 @@ class ShopDiscountsExtension < Radiant::Extension
   # See your config/routes.rb file in this extension to define custom routes
   
   def activate
-    ShopProduct.send :include, ShopDiscounts::Models::ShopDiscountable
     
-    ShopPackage.send :include, ShopDiscounts::Models::ShopDiscountable rescue nil
+    tab "Shop" do
+      add_item "Discounts",     "/admin/shop/discounts"
+    end
+    
+    ShopLineItem.send :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Purchaseable
+    
+    ShopProduct.send :include, ShopDiscounts::Models::Discountable
+    ShopOrder.send :include, ShopDiscounts::Models::Discountable
+    
+    ShopPackage.send :include, ShopDiscounts::Models::Discountable rescue nil
+    
+    Page.send :include, ShopDiscounts::Tags::Cart, ShopDiscounts::Tags::Item
+    
   end
 end

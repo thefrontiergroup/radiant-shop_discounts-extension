@@ -7,22 +7,22 @@ module ShopDiscounts
         tag "shop:cart:item:#{symbol}" do |tag|
           attr = tag.attr.symbolize_keys
           item = tag.locals.shop_line_item
-
-          Helpers.currency(item.send(symbol),attr)
+          
+          Shop::Tags::Helpers.currency(item.send(symbol),attr)
         end
       end
-
+      
       desc %{ expands if the item has a discount}
       tag "shop:cart:item:if_discounted" do |tag|
         item = tag.locals.shop_line_item
-  
+        
         tag.expand if item.price != item.value
       end
-
+      
       desc %{ expands if the item has a discount}
       tag "shop:cart:item:unless_discounted" do |tag|
         item = tag.locals.shop_line_item
-  
+        
         tag.expand if item.price == item.value
       end
     end

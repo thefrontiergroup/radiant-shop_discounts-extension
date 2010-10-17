@@ -1,0 +1,125 @@
+ul.discounteds, .availables
+  padding:
+    top: 10px
+    
+  li.discounted, .available
+    float: left
+    position: relative
+    padding: 10px
+    height: 100px
+    width: 100px
+    margin:
+      right: 10px
+    border:
+      radius: 6px
+    -moz:
+      border:
+        radius: 6px
+    -webkit:
+      border:
+        radius: 6px
+    cursor: move
+    overflow: hidden
+    *
+      vertical:
+        align: middle
+
+    .wrapper
+      display: table-cell
+      height: 100px
+      width: 100px
+      text:
+        align: center
+      vertical:
+        align: middle
+
+    img
+      width: 100px
+      max:
+        height: 100px
+
+    .name
+      line-height: 12px
+      font-size: 12px
+      position: absolute
+      display: block
+      width: 96%
+      top: 37.5px
+      left: 0
+      padding: 4px 2%
+      overflow: hidden
+      text-align: center
+      
+    .sku, .handle
+      visibility: hidden
+      font-size: 10px
+      line-height: 12px
+      position: absolute
+      display: block
+      width: 96%
+      bottom: 12.5px
+      left: 0
+      padding: 4px 2%
+      overflow: hidden
+      text-align: center
+      color: #757575
+
+    &:hover
+      background:
+        color: #f9f6fe
+
+      .sku, .handle
+        visibility: visible
+
+      .name
+        background-color: #f9f6fe
+        
+ul.discounteds
+  overflow: hidden
+
+  li.discounted
+  
+    .actions
+      position: absolute
+      display: block
+      width: 100%
+      top: 0
+      left: 0
+
+      .delete
+        position: absolute
+        top: 4px
+        right: -4px
+        width: 20px
+        height: 20px
+        overflow: hidden
+        display: block
+        cursor: pointer
+        background:
+          image: url('/images/admin/minus_disabled.png')
+          repeat: no-repeat
+          position: 0 0
+        cursor: pointer
+
+        &:hover
+          background:
+            image: url('/images/admin/minus.png')
+            
+ul.availables
+  /* This makes the scroll look nice */
+  margin:
+    right: -10px
+    top: -10px
+  padding:
+    left: 15px
+    bottom: 10px
+  width: 680px
+  max-height: 350px
+  overflow-y: scroll
+  
+  li.available
+  
+    .actions
+    
+      .delete
+        display: none

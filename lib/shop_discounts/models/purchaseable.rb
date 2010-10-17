@@ -1,17 +1,16 @@
-module Shop
+module ShopDiscounts
   module Models
-    module Page
+    module Purchaseable
       
       def self.included(base)
         base.class_eval do
-          
-          alias_method :price, :value
-          
+          alias_method :value, :price
           def price
-            value -= discounted
+            result = BigDecimal.new('0.00')
+            result = value - discounted
             
             # We never want to return a negative cost
-            [0.00,value.to_f].max
+            [0.00,result.to_f].max
           end
           
           def discounted
@@ -25,7 +24,6 @@ module Shop
             # Convert to a percentage
             discount * 0.01
           end
-          
         end
       end
       
