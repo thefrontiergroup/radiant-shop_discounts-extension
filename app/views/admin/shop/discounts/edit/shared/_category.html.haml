@@ -1,0 +1,11 @@
+- discounted_type = category.class.to_s
+- discounted_id   = discounted_type == "ShopCategory" ? category.id           : category.discounted_id
+- discountable_id = discounted_type == "ShopCategory" ? nil                   : category.id
+- success_element = discounted_type == "ShopCategory" ? 'discount_categories' : 'available_categories'
+- class_type      = discounted_type == "ShopCategory" ? "available"           : "discounted"
+
+%li.category{:class => "discountable #{class_type} category", :id => "#{discounted_type}_#{category.id}", :'data-discounted_id' => discounted_id, :'data-discounted_type' => discounted_type, :'data-discounted_type_human' => 'Category', :'data-discountable_id' => discountable_id, :'data-success_element' => success_element }
+  %span.name= truncate((category.name rescue category.discounted.name), 30, '...')
+  %span.handle= (category.handle rescue category.discounted.handle)
+  .actions
+    %span.delete

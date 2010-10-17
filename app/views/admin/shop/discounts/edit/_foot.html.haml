@@ -1,0 +1,16 @@
+- render_region :foot do |foot|
+  - foot.buttons do
+    %p.buttons
+      = save_model_button(@shop_discount)
+      = save_model_and_continue_editing_button(@shop_discount)
+      = t('or')
+      = link_to t('cancel'), admin_shop_discounts_path
+  - foot.timestamp do
+    = updated_stamp @shop_discount
+
+- unless @shop_discount.new_record?
+  :javascript
+    if(typeof(ROUTES) === 'undefined') ROUTES = new Array();
+    
+    ROUTES['admin_shop_discount_discountables_path'] = "#{admin_shop_discount_discountables_path(@shop_discount)}";
+    ROUTES['admin_shop_discount_discountable_path']  = "#{admin_shop_discount_discountable_path(@shop_discount, ':id')}";

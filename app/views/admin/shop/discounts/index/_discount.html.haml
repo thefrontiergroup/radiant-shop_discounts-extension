@@ -1,0 +1,13 @@
+%li.discount.object{:id => "discount_#{discount.id}", :'data-id' => discount.id}
+  .attributes
+    %span.name.attribute
+    - render_region :body do |body|
+      - body.name do
+        %span.name.attribute= link_to discount.name, [:edit_admin, discount]
+      - body.code do
+        %span.code.attribute= discount.code
+      - body.amount do
+        %span.amount.attribute= discount.amount
+      - body.modify do
+        .modify
+          %span.remove= link_to t('remove'), [:remove_admin, discount]

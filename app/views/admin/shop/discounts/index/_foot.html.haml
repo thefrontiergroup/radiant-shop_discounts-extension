@@ -1,0 +1,5 @@
+%ul
+  - render_region :foot do |foot|
+    - foot.buttons do
+      - @buttons.each do |button|
+        %li= render :partial => "admin/shop/discounts/index/buttons/#{button}"

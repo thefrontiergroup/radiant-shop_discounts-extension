@@ -1,0 +1,6 @@
+%h3.title Browse Categories
+
+%ul#available_categories.availables
+  = render :partial => '/admin/shop/discounts/edit/shared/category', :collection => @shop_discount.available_categories
+
+%a#browse_categories_popup_close.close{ :href => '#browse_categories_popup_close' }

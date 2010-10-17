@@ -1,0 +1,15 @@
+- form_for [:admin, @shop_discount], :html => {'data-onsubmit_status'=>"Saving Changes&#8230;"} do |f|
+  = hidden_field_tag 'shop_discount_id',@shop_discount.id 
+  
+  - render_region :form do |form|  
+    - form.inputs do
+      = render :partial => '/admin/shop/discounts/edit/inputs',  :locals => { :f => f }
+
+    - form.meta do
+      = render :partial => '/admin/shop/discounts/edit/meta',    :locals => { :f => f }
+
+    - form.parts do
+      = render :partial => '/admin/shop/discounts/edit/parts',   :locals => { :f => f }
+
+    - form.foot do
+      = render :partial => 'admin/shop/discounts/edit/foot',     :locals => { :f => f }

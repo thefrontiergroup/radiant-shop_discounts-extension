@@ -1,0 +1,13 @@
+- @page_title = t('discounts') + ' - ' + default_page_title
+
+.outset
+
+  #head.min
+    = render :partial => '/admin/shop/discounts/index/head'
+
+  #discounts_map.map
+    %ul#discounts
+      = render :partial => '/admin/shop/discounts/index/discount', :collection => @shop_discounts
+
+  #actions
+    = render :partial => '/admin/shop/discounts/index/foot'

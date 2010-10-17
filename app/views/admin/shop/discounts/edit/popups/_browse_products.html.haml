@@ -1,0 +1,6 @@
+%h3.title Browse Products
+
+%ul#available_products.availables
+  = render :partial => '/admin/shop/discounts/edit/shared/product', :collection => @shop_discount.available_products
+
+%a#browse_products_popup_close.close{ :href => '#browse_products_popup_close' }
