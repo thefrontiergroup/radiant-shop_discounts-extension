@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 
 describe FormDiscount do
   
-  dataset :shop_discounts, :pages, :forms
+  dataset :forms_discount, :shop_discounts, :pages
   
   before :each do
     mock_page_with_request_and_data
@@ -19,7 +19,7 @@ describe FormDiscount do
       end
       context 'valid discount' do
         before :each do
-          @discount = FormDiscount.new(@form, @page)
+          @discount = FormDiscount.new(@form, @page, @form[:extensions][:add_discount])
           @result = @discount.create
         end
         it 'should add the discount to the order' do
@@ -44,10 +44,10 @@ describe FormDiscount do
         discountable = shop_discounts(:ten_percent).discountables.create(:discounted_id => @order.id, :discounted_type => @order.class.name)
         
         mock_valid_form_discount_request
-        @form[:extensions][:discount][:process] = 'remove'
+        @form[:extensions][:add_discount][:process] = 'remove'
         @data[:discountable] = { :id => discountable.id }
         
-        @discount = FormDiscount.new(@form, @page)
+        @discount = FormDiscount.new(@form, @page, @form[:extensions][:add_discount])
         @result = @discount.create
       end
       it 'should remove the discount from the order' do

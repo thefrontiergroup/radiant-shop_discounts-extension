@@ -4,25 +4,26 @@ module ShopDiscounts
       
       def self.included(base)
         base.class_eval do
-          alias_method :value, :price
-          def price
-            result = BigDecimal.new('0.00')
-            result = value - discounted
+          
+          def discount
+            discount = BigDecimal.new('0.00')
+            discounts.map { |d| discount += d.amount }
             
-            # We never want to return a negative cost
-            [0.00,result.to_f].max
+            # Maximum discount is 100%
+            discount = [discount,100.0].min
+            
+            # Convert to a percentage
+            discount * 0.01
           end
           
           def discounted
             (value * discount)
           end
           
-          def discount
-            discount = BigDecimal.new('0.00')
-            discounts.map { |d| discount += d.amount }
-            
-            # Convert to a percentage
-            discount * 0.01
+          alias_method :value, :price
+          def price
+            result = BigDecimal.new('0.00')
+            result = value - discounted
           end
         end
       end

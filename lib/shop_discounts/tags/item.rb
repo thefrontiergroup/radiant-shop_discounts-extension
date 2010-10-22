@@ -2,7 +2,7 @@ module ShopDiscounts
   module Tags
     module Item
       include Radiant::Taggable
-      [:value, :markdown].each do |symbol|
+      [:value, :discount].each do |symbol|
         desc %{ outputs the #{symbol} of the current cart item }
         tag "shop:cart:item:#{symbol}" do |tag|
           attr = tag.attr.symbolize_keys
