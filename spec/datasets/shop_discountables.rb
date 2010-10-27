@@ -16,7 +16,7 @@ class ShopDiscountablesDataset < Dataset::Base
     create_record :shop_discountables, :five_percent_crusty_bread,
       :discount_id    => shop_discounts(:five_percent).id,
       :discounted_id  => shop_products(:crusty_bread).id,
-      :discounted_type => 'ShopProduct'      
+      :discounted_type => 'ShopProduct'
   end
     
 end

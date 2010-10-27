@@ -22,7 +22,6 @@ describe Admin::Shop::Discounts::DiscountablesController do
       context 'js' do
         it 'should return error notice and failure status' do
           post :create, :discount_id => @discountable.discount.id, :discounted_id => @discounted.id, :discounted_type => @discounted.class.name, :format => 'js'
-          
           response.body.should === 'Could not attach Discount.'
           response.should_not be_success
         end

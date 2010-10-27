@@ -22,8 +22,7 @@ describe ShopDiscounts::Tags::Item do
     end
     
     before :each do
-      @cart = shop_orders(:several_items)
-      @line_item = @cart.line_items.first
+      @line_item = shop_line_items(:one)
       shop_discounts(:ten_percent).discountables.create(:discounted => @line_item)
       mock(Shop::Tags::Helpers).current_line_item(anything) { @line_item }
     end
