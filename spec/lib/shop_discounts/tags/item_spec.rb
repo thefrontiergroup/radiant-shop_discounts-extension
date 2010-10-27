@@ -5,10 +5,10 @@ require 'spec/spec_helper'
 #
 describe ShopDiscounts::Tags::Item do
   
-  dataset :pages, :shop_orders, :shop_line_items
+  dataset :pages, :shop_orders, :shop_line_items, :shop_discounts
   
   it 'should describe these tags' do
-    ShopDiscount::Tags::Item.tags.sort.should == [
+    ShopDiscounts::Tags::Item.tags.sort.should == [
       'shop:cart:item:value',
       'shop:cart:item:discount',
       'shop:cart:item:if_discounted',
@@ -24,6 +24,7 @@ describe ShopDiscounts::Tags::Item do
     before :each do
       @cart = shop_orders(:several_items)
       @line_item = @cart.line_items.first
+      shop_discounts(:ten_percent).discountables.create(:discounted => @line_item)
       mock(Shop::Tags::Helpers).current_line_item(anything) { @line_item }
     end
   
@@ -46,11 +47,49 @@ describe ShopDiscounts::Tags::Item do
     end
   
     describe '<r:shop:cart:item:if_discounted />' do
-      it 'should be written'
+      context 'item is discounted' do
+        it 'should expand' do
+          tag = %{<r:shop:cart:item:if_discounted>success</r:shop:cart:item:if_discounted>}
+          exp = %{success}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+      
+      context 'item is not discounted' do
+        before :each do
+          @line_item.discounts.delete_all
+        end
+        it 'should not expand' do
+          tag = %{<r:shop:cart:item:if_discounted>failure</r:shop:cart:item:if_discounted>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+      end
     end
   
     describe '<r:shop:cart:item:unless_discounted />' do
-      it 'should be written'
+      context 'item is not discounted' do
+        before :each do
+          @line_item.discounts.delete_all
+        end
+        it 'should expand' do
+          tag = %{<r:shop:cart:item:unless_discounted>success</r:shop:cart:item:unless_discounted>}
+          exp = %{success}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+      
+      context 'item is discounted' do
+        it 'should not expand' do
+          tag = %{<r:shop:cart:item:unless_discounted>failure</r:shop:cart:item:unless_discounted>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+      end
     end
     
   end

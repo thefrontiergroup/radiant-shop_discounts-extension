@@ -19,8 +19,8 @@ class ShopDiscountsDataset < Dataset::Base
       :finishes_at => nil
 
     create_record :shop_discounts, :hundred_percent,
-      :name        => 'invalid',
-      :code        => 'invalid',
+      :name        => 'hundred',
+      :code        => 'hundred',
       :amount      => 100
         
     create_record :shop_discounts, :invalid,

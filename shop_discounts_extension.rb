@@ -6,14 +6,12 @@ class ShopDiscountsExtension < Radiant::Extension
   description "Describe your extension here"
   url "http://yourwebsite.com/shop_discounts"
   
-  # extension_config do |config|
-  #   config.gem 'some-awesome-gem
-  #   config.after_initialize do
-  #     run_something
-  #   end
-  # end
-
-  # See your config/routes.rb file in this extension to define custom routes
+  extension_config do |config|
+    #config.gem 'radiant-shop-extension', :lib => false
+  end
+  
+  UserActionObserver.instance.send :add_observer!, ShopDiscount
+  UserActionObserver.instance.send :add_observer!, ShopDiscountable
   
   def activate
     
@@ -23,10 +21,9 @@ class ShopDiscountsExtension < Radiant::Extension
     
     ShopLineItem.send :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Purchaseable
     
-    ShopProduct.send :include, ShopDiscounts::Models::Discountable
-    ShopOrder.send :include, ShopDiscounts::Models::Discountable
-    
-    ShopPackage.send :include, ShopDiscounts::Models::Discountable rescue nil
+    ShopProduct.send  :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Product
+    ShopOrder.send    :include, ShopDiscounts::Models::Discountable
+    ShopCategory.send :include, ShopDiscounts::Models::Discountable
     
     Page.send :include, ShopDiscounts::Tags::Cart, ShopDiscounts::Tags::Item
     
