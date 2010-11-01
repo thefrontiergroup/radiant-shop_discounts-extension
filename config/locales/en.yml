@@ -1,3 +1,17 @@
 ---
 en:
   shop discounts: Shop Discounts
+  discounts: Discounts
+  add_discount: Add Discount
+  new_discount: New Discount
+  browse_products: Browse Products
+  browse_categories: Browse Categories
+  amount: Amount
+  code: Code
+  starts: Starts On
+  finishes: Finishes On
+  remove_discount: Remove Discount
+  text:
+    remove_discount:
+      warning: Removing a discount is irreversible
+  delete_discount: Delete Discount

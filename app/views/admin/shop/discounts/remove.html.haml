@@ -7,6 +7,6 @@
 - form_for [:admin, @shop_discount.becomes(ShopDiscount)], :html => {:method => :delete, 'data-onsubmit_status'=>"Removing Discount&#8230;"} do
   
   %p.buttons
-    %input.button{:type=>"submit", :value => t('delete_variant') }/
+    %input.button{:type=>"submit", :value => t('delete_discount') }/
     = t('or')    
     = link_to t('cancel'), admin_shop_discounts_path
