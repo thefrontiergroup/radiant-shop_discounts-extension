@@ -7,6 +7,7 @@ begin
     gem.email = "dk@dirkkelly.com"
     gem.homepage = "http://yourwebsite.com/shop_discounts"
     gem.authors = ["Dirk Kelly"]
+    gem.add_dependency 'radiant-shop-extension'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
