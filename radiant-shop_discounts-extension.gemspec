@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dirk Kelly"]
   s.date = %q{2010-11-10}
-  s.description = %q{Describe your extension here}
+  s.description = %q{Discounts on Products and Categories}
   s.email = %q{dk@dirkkelly.com}
   s.extra_rdoc_files = [
     "README"
@@ -86,7 +86,7 @@ Gem::Specification.new do |s|
      "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://yourwebsite.com/shop_discounts}
+  s.homepage = %q{http://github.com/thefrontiergroup/shop_discounts}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}

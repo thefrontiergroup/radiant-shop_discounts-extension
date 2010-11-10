@@ -3,9 +3,9 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "radiant-shop_discounts-extension"
     gem.summary = %Q{Shop Discounts Extension for Radiant CMS}
-    gem.description = %Q{Describe your extension here}
+    gem.description = %Q{Discounts on Products and Categories}
     gem.email = "dk@dirkkelly.com"
-    gem.homepage = "http://yourwebsite.com/shop_discounts"
+    gem.homepage = "http://github.com/thefrontiergroup/shop_discounts"
     gem.authors = ["Dirk Kelly"]
     gem.add_dependency 'radiant-shop-extension'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
