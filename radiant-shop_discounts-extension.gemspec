@@ -17,8 +17,10 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".DS_Store",
+     ".gitignore",
      "README",
      "Rakefile",
+     "VERSION",
      "app/controllers/admin/shop/discounts/discountables_controller.rb",
      "app/controllers/admin/shop/discounts_controller.rb",
      "app/models/form_discount.rb",
@@ -66,6 +68,7 @@ Gem::Specification.new do |s|
      "lib/tasks/shop_discounts_extension_tasks.rake",
      "public/javascripts/admin/extensions/shop/discounts/edit.js",
      "public/stylesheets/sass/admin/extensions/shop/discounts/edit.sass",
+     "radiant-shop_discounts-extension.gemspec",
      "shop_discounts_extension.rb",
      "spec/controllers/admin/shop/discounts/discountables_controller_spec.rb",
      "spec/controllers/admin/shop/discounts_controller_spec.rb",
