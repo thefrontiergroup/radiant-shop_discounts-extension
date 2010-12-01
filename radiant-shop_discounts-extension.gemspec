@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{radiant-shop_discounts-extension}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dirk Kelly"]
@@ -59,6 +59,7 @@ Gem::Specification.new do |s|
     "db/migrate/20101015162137_setup_shop_discounts.rb",
     "features/support/env.rb",
     "features/support/paths.rb",
+    "lib/radiant-shop_discounts-extension.rb",
     "lib/shop_discounts/models/discountable.rb",
     "lib/shop_discounts/models/product.rb",
     "lib/shop_discounts/models/purchaseable.rb",
@@ -85,7 +86,7 @@ Gem::Specification.new do |s|
     "spec/spec.opts",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/thefrontiergroup/shop_discounts}
+  s.homepage = %q{https://github.com/thefrontiergroup/radiant-shop_discounts-extension}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Shop Discounts Extension for Radiant CMS}
