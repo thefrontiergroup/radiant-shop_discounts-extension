@@ -16,7 +16,7 @@ class ShopDiscountsExtension < Radiant::Extension
   def activate
     
     tab "Shop" do
-      add_item "Discounts",     "/admin/shop/discounts"
+      add_item "Discounts", "/admin/shop/discounts", :before => "Orders"
     end
     
     ShopLineItem.send :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Purchaseable
