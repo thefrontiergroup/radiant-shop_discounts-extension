@@ -5,7 +5,7 @@ begin
     gem.summary = %Q{Shop Discounts Extension for Radiant CMS}
     gem.description = %Q{RadiantShop: Apply discounts to Products and Categories and have them accessed through codes}
     gem.email = "dk@dirkkelly.com"
-    gem.homepage = "http://github.com/thefrontiergroup/shop_discounts"
+    gem.homepage = "https://github.com/thefrontiergroup/radiant-shop_discounts-extension"
     gem.authors = ["Dirk Kelly"]
     gem.add_dependency 'radiant-shop-extension'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
