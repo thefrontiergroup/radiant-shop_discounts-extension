@@ -1,13 +1,10 @@
-# Uncomment this if you reference any of your controllers in activate
-# require_dependency 'application_controller'
-
 class ShopDiscountsExtension < Radiant::Extension
-  version "1.0"
-  description "Describe your extension here"
+  version YAML::load_file(File.join(File.dirname(__FILE__), 'VERSION'))
+  description "Add Discounts to "
   url "http://yourwebsite.com/shop_discounts"
   
   extension_config do |config|
-    #config.gem 'radiant-shop-extension', :lib => false
+    config.gem 'radiant-shop-extension'
   end
   
   UserActionObserver.instance.send :add_observer!, ShopDiscount
