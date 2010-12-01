@@ -1,7 +1,7 @@
 class ShopDiscountsExtension < Radiant::Extension
   version YAML::load_file(File.join(File.dirname(__FILE__), 'VERSION'))
-  description "Add Discounts to "
-  url "http://yourwebsite.com/shop_discounts"
+  description "Add Discounts to Radiant Shop"
+  url "https://github.com/thefrontiergroup/radiant-shop_discounts-extension"
   
   extension_config do |config|
     config.gem 'radiant-shop-extension'
