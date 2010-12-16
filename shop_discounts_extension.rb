@@ -21,8 +21,17 @@ class ShopDiscountsExtension < Radiant::Extension
     ShopProduct.send  :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Product
     ShopOrder.send    :include, ShopDiscounts::Models::Discountable
     ShopCategory.send :include, ShopDiscounts::Models::Discountable
+    User.send         :include, ShopDiscounts::Models::Discountable
     
-    Page.send :include, ShopDiscounts::Tags::Cart, ShopDiscounts::Tags::Item
+    Page.send         :include, ShopDiscounts::Tags::Cart, ShopDiscounts::Tags::Item
+    
+    FormLineItem.send :include, ShopDiscounts::Models::FormLineItem
+    
+    ApplicationController.send :include, ShopDiscounts::Controllers::ApplicationController
+    
+    if defined?(ShopPackage)
+      ShopPackage.send :include, ShopDiscounts::Models::Discountable
+    end
     
   end
 end

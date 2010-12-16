@@ -35,6 +35,7 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
     def config_edit
       @buttons  << 'browse_categories'
       @buttons  << 'browse_products'
+      @buttons  << 'browse_users'
       
       @inputs   << 'name'
       @inputs   << 'amount'
@@ -45,9 +46,11 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
       
       @parts    << 'categories'
       @parts    << 'products'
+      @parts    << 'users'
       
       @popups   << 'browse_categories'
       @popups   << 'browse_products'
+      @popups   << 'browse_users'
     end
     
     def assets_global
