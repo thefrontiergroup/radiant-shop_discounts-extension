@@ -1,0 +1,6 @@
+%h3.title= t('browse_users')
+
+%ul#available_users.availables
+  = render :partial => '/admin/shop/discounts/edit/shared/user', :collection => @shop_discount.available_users
+
+%a#browse_users_popup_close.close{ :href => '#browse_users_popup_close' }
