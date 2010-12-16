@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require File.dirname(__FILE__) + "/../../../spec_helper"
 
 describe Admin::Shop::DiscountsController do
   
@@ -43,9 +43,9 @@ describe Admin::Shop::DiscountsController do
         
         assigns(:inputs).should   === ['name','amount','code']
         assigns(:meta).should     === ['start','finish']
-        assigns(:buttons).should  === ['browse_categories', 'browse_products']
-        assigns(:parts).should    === ['categories', 'products']
-        assigns(:popups).should   === ['browse_categories', 'browse_products']
+        assigns(:buttons).should  === ['browse_categories', 'browse_products','browse_users']
+        assigns(:parts).should    === ['categories', 'products','users']
+        assigns(:popups).should   === ['browse_categories', 'browse_products','browse_users']
       end
     end
   end
@@ -71,9 +71,9 @@ describe Admin::Shop::DiscountsController do
         
         assigns(:inputs).should   === ['name','amount','code']
         assigns(:meta).should     === ['start','finish']
-        assigns(:buttons).should  === ['browse_categories', 'browse_products']
-        assigns(:parts).should    === ['categories', 'products']
-        assigns(:popups).should   === ['browse_categories', 'browse_products']
+        assigns(:buttons).should  === ['browse_categories', 'browse_products','browse_users']
+        assigns(:parts).should    === ['categories', 'products','users']
+        assigns(:popups).should   === ['browse_categories', 'browse_products','browse_users']
       end
     end
   end

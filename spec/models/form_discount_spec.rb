@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 
 describe FormDiscount do
   
-  dataset :forms_discount, :shop_discounts, :pages
+  dataset :forms_discount, :shop_discounts, :pages, :shop_customers
   
   before :each do
     mock_page_with_request_and_data
