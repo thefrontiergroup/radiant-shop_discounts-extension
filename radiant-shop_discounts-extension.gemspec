@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{radiant-shop_discounts-extension}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dirk Kelly"]
-  s.date = %q{2010-12-01}
+  s.date = %q{2010-12-17}
   s.description = %q{RadiantShop: Apply discounts to Products and Categories and have them accessed through codes}
   s.email = %q{dk@dirkkelly.com}
   s.extra_rdoc_files = [
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
     "app/views/admin/shop/discounts/edit/_popups.html.haml",
     "app/views/admin/shop/discounts/edit/buttons/_browse_categories.html.haml",
     "app/views/admin/shop/discounts/edit/buttons/_browse_products.html.haml",
+    "app/views/admin/shop/discounts/edit/buttons/_browse_users.html.haml",
     "app/views/admin/shop/discounts/edit/inputs/_amount.html.haml",
     "app/views/admin/shop/discounts/edit/inputs/_code.html.haml",
     "app/views/admin/shop/discounts/edit/inputs/_name.html.haml",
@@ -42,10 +43,13 @@ Gem::Specification.new do |s|
     "app/views/admin/shop/discounts/edit/meta/_start.html.haml",
     "app/views/admin/shop/discounts/edit/parts/_categories.html.haml",
     "app/views/admin/shop/discounts/edit/parts/_products.html.haml",
+    "app/views/admin/shop/discounts/edit/parts/_users.html.haml",
     "app/views/admin/shop/discounts/edit/popups/_browse_categories.html.haml",
     "app/views/admin/shop/discounts/edit/popups/_browse_products.html.haml",
+    "app/views/admin/shop/discounts/edit/popups/_browse_users.html.haml",
     "app/views/admin/shop/discounts/edit/shared/_category.html.haml",
     "app/views/admin/shop/discounts/edit/shared/_product.html.haml",
+    "app/views/admin/shop/discounts/edit/shared/_user.html.haml",
     "app/views/admin/shop/discounts/index.html.haml",
     "app/views/admin/shop/discounts/index/_discount.html.haml",
     "app/views/admin/shop/discounts/index/_foot.html.haml",
@@ -61,8 +65,10 @@ Gem::Specification.new do |s|
     "features/support/paths.rb",
     "lib/radiant-shop_discounts-extension.rb",
     "lib/shop_discounts/models/discountable.rb",
-    "lib/shop_discounts/models/product.rb",
+    "lib/shop_discounts/models/form_line_item.rb",
     "lib/shop_discounts/models/purchaseable.rb",
+    "lib/shop_discounts/models/shop_order.rb",
+    "lib/shop_discounts/models/shop_product.rb",
     "lib/shop_discounts/tags/cart.rb",
     "lib/shop_discounts/tags/item.rb",
     "lib/tasks/shop_discounts_extension_tasks.rake",
@@ -76,12 +82,14 @@ Gem::Specification.new do |s|
     "spec/datasets/shop_discountables.rb",
     "spec/datasets/shop_discounts.rb",
     "spec/lib/shop_discounts/models/discountable_spec.rb",
+    "spec/lib/shop_discounts/models/form_line_item_spec.rb",
     "spec/lib/shop_discounts/models/purchaseable_spec.rb",
     "spec/lib/shop_discounts/tags/item_spec.rb",
     "spec/models/form_discount_spec.rb",
     "spec/models/shop_category_spec.rb",
     "spec/models/shop_discount_spec.rb",
     "spec/models/shop_line_item_spec.rb",
+    "spec/models/shop_order_spec.rb",
     "spec/models/shop_product_spec.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb"
@@ -97,12 +105,14 @@ Gem::Specification.new do |s|
     "spec/datasets/shop_discountables.rb",
     "spec/datasets/shop_discounts.rb",
     "spec/lib/shop_discounts/models/discountable_spec.rb",
+    "spec/lib/shop_discounts/models/form_line_item_spec.rb",
     "spec/lib/shop_discounts/models/purchaseable_spec.rb",
     "spec/lib/shop_discounts/tags/item_spec.rb",
     "spec/models/form_discount_spec.rb",
     "spec/models/shop_category_spec.rb",
     "spec/models/shop_discount_spec.rb",
     "spec/models/shop_line_item_spec.rb",
+    "spec/models/shop_order_spec.rb",
     "spec/models/shop_product_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -112,12 +122,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<radiant-shop-extension>, [">= 0"])
+      s.add_runtime_dependency(%q<radiant-shop-extension>, ["= 0.92.2"])
     else
-      s.add_dependency(%q<radiant-shop-extension>, [">= 0"])
+      s.add_dependency(%q<radiant-shop-extension>, ["= 0.92.2"])
     end
   else
-    s.add_dependency(%q<radiant-shop-extension>, [">= 0"])
+    s.add_dependency(%q<radiant-shop-extension>, ["= 0.92.2"])
   end
 end
 
