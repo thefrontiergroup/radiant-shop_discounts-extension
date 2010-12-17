@@ -1,6 +1,6 @@
 module ShopDiscounts
   module Models
-    module Product
+    module ShopProduct
       
       def self.included(base)
         base.class_eval do
