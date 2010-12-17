@@ -11,15 +11,15 @@ unless defined? RADIANT_ROOT
 end
 require "#{RADIANT_ROOT}/spec/spec_helper"
 
+require ShopExtension.root + '/spec/spec_helper'
+
 unless defined? SHOP_DISCOUNTS_ROOT
   
-  SHOP_ROOT = ShopExtension.root + '/spec'
   SHOP_DISCOUNTS_ROOT = ShopDiscountsExtension.root + '/spec'
   
-  Dataset::Resolver.default << (SHOP_ROOT + "/datasets")
   Dataset::Resolver.default << (SHOP_DISCOUNTS_ROOT + "/datasets")
   
-  Dir[SHOP_DISCOUNTS_ROOT + "/matchers/**/*.rb"].each
+  Dir[SHOP_ROOT + "/matchers/*.rb"].each {|file| require file }
   if File.directory?(SHOP_DISCOUNTS_ROOT + "/matchers")
     Dir[SHOP_DISCOUNTS_ROOT + "/matchers/**/*.rb"].each {|file| require file }
   end
