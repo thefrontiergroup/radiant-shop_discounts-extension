@@ -7,8 +7,10 @@ module ShopDiscounts
                     
           # Assigns discounts based off the customers discounts
           def apply_customer_discounts
-            customer.discounts.each do |discount|
-              ShopDiscountable.create(:discount_id => discount.id, :discounted_id => self.id, :discounted_type => self.class.name)
+            if customer.present?
+              customer.discounts.each do |discount|
+                ShopDiscountable.create(:discount_id => discount.id, :discounted_id => self.id, :discounted_type => self.class.name)
+              end
             end
           end
           
