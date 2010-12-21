@@ -7,7 +7,7 @@ begin
     gem.email = "dk@dirkkelly.com"
     gem.homepage = "https://github.com/thefrontiergroup/radiant-shop_discounts-extension"
     gem.authors = ["Dirk Kelly"]
-    gem.add_dependency 'radiant-shop-extension', '0.92.2'
+    gem.add_dependency 'radiant-shop-extension', '>= 0.92.3'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
