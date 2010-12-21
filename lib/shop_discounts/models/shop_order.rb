@@ -20,6 +20,7 @@ module ShopDiscounts
               if order = original_find_by_session(session)
                 order.apply_customer_discounts
               end
+              order
             end
           end
         end
