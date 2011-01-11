@@ -18,7 +18,7 @@ describe ShopDiscounts::Models::FormLineItem do
   
   it 'should call #create_shop_line_items_if_shop_order on the order' do
     @discount = ShopDiscountable.new
-    mock(@discount).create_shop_line_items_if_shop_order { true }
+    mock(@discount).create_shop_line_items { true }
     mock(@order).discountables { [ @discount ] }
     stub(ShopOrder).find(@order.id) { @order }
     

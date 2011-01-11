@@ -9,7 +9,7 @@ module ShopDiscounts
             @result = create_without_discounts
             
             @order.discountables.each do |discountable|
-              discountable.create_shop_line_items_if_shop_order
+              discountable.create_shop_line_items
             end
             
             @result
