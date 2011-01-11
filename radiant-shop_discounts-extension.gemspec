@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{radiant-shop_discounts-extension}
-  s.version = "0.0.10"
+  s.version = "0.0.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dirk Kelly"]
@@ -22,11 +22,11 @@ Gem::Specification.new do |s|
     "VERSION",
     "app/controllers/admin/shop/discounts/discountables_controller.rb",
     "app/controllers/admin/shop/discounts_controller.rb",
-    "app/models/category_shop_discountable.rb",
     "app/models/form_discount.rb",
-    "app/models/order_shop_discountable.rb",
     "app/models/shop_discount.rb",
     "app/models/shop_discountable.rb",
+    "app/models/shop_discountable_category.rb",
+    "app/models/shop_discountable_order.rb",
     "app/views/admin/shop/discounts/edit.html.haml",
     "app/views/admin/shop/discounts/edit/_foot.html.haml",
     "app/views/admin/shop/discounts/edit/_form.html.haml",
