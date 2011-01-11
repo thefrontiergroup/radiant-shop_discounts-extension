@@ -9,13 +9,18 @@ class ShopDiscount < ActiveRecord::Base
   belongs_to  :created_by,  :class_name => 'User'
   belongs_to  :updated_by,  :class_name => 'User'
   
-  has_many    :discountables, :class_name => 'ShopDiscountable', :foreign_key  => :discount_id
+  has_many    :discountables,            :class_name => 'ShopDiscountable',         :foreign_key  => :discount_id
   
-  has_many    :categories,  :through => :discountables, :source => :category, :conditions => "shop_discountables.discounted_type = 'ShopCategory'"
   has_many    :products,    :through => :discountables, :source => :product,  :conditions => "shop_discountables.discounted_type = 'ShopProduct'"
-  has_many    :orders,      :through => :discountables, :source => :order,    :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
-  has_many    :line_items,  :through => :discountables, :source => :line_item,:conditions => "shop_discountables.discounted_type = 'ShopLineItem'"
   has_many    :users,       :through => :discountables, :source => :user,     :conditions => "shop_discountables.discounted_type = 'User'"
+  has_many    :line_items,  :through => :discountables, :source => :line_item,:conditions => "shop_discountables.discounted_type = 'ShopLineItem'"
+  
+  has_many    :discountables_categories, :class_name => 'ShopDiscountableCategory', :foreign_key  => :discount_id
+  has_many    :categories,  :through => :discountables_categories, :source => :category, :conditions => "shop_discountables.discounted_type = 'ShopCategory'"
+  
+  has_many    :discountables_orders,      :class_name => 'ShopDiscountableOrder',    :foreign_key  => :discount_id
+  has_many    :orders,      :through => :discountable_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
+
   
   validates_presence_of     :name, :code, :amount
   validates_uniqueness_of   :name, :code

@@ -1,7 +1,9 @@
-class OrderShopDiscountable < ShopDiscountable
+class ShopDiscountableOrder < ShopDiscountable
     
   before_validation       :create_shop_line_items
   before_destroy          :destroy_shop_line_items
+  
+  belongs_to :order,      :class_name => 'ShopOrder',     :foreign_key => :discounted_id
   
   # Adds discount to an order's line_items
   def create_shop_line_items

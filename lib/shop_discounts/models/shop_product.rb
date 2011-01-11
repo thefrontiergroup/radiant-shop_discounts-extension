@@ -8,7 +8,7 @@ module ShopDiscounts
           
           # Assigns discounts based off categories discounts
           def assign_discounts
-            category.discounts.each do |discount|      
+            category.discounts.each do |discount|
               ShopDiscountable.create(:discount => discount, :discounted => self)
             end
           end
