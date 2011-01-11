@@ -57,7 +57,7 @@ class ShopDiscountable < ActiveRecord::Base
   # Removes discount from an order's line_items
   def destroy_shop_line_items_if_shop_order
     if discounted_type === 'ShopOrder'
-      discount.discountables.for('ShopLineItem').each do |discountable|
+      discounted.discountables.for('ShopLineItem').each do |discountable|
         discountable.destroy
       end
     end
