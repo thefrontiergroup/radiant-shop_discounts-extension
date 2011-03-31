@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{radiant-shop_discounts-extension}
-  s.version = "0.0.11"
+  s.version = "0.0.12"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dirk Kelly"]
-  s.date = %q{2011-01-11}
+  s.date = %q{2011-04-01}
   s.description = %q{RadiantShop: Apply discounts to Products and Categories and have them accessed through codes}
   s.email = %q{dk@dirkkelly.com}
   s.extra_rdoc_files = [
@@ -100,7 +100,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{https://github.com/thefrontiergroup/radiant-shop_discounts-extension}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.1}
+  s.rubygems_version = %q{1.5.3}
   s.summary = %q{Shop Discounts Extension for Radiant CMS}
   s.test_files = [
     "spec/controllers/admin/shop/discounts/discountables_controller_spec.rb",
