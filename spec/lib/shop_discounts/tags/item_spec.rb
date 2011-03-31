@@ -11,6 +11,8 @@ describe ShopDiscounts::Tags::Item do
     ShopDiscounts::Tags::Item.tags.sort.should == [
       'shop:cart:item:value',
       'shop:cart:item:discount',
+      'shop:cart:item:discounted',
+      'shop:cart:item:rrp',
       'shop:cart:item:if_discounted',
       'shop:cart:item:unless_discounted'].sort
   end
