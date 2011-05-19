@@ -22,8 +22,9 @@ class ShopDiscount < ActiveRecord::Base
   has_many    :orders,      :through => :discountable_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
 
   
-  validates_presence_of     :name, :code, :amount
-  validates_uniqueness_of   :name, :code
+  validates_presence_of     :name, :amount
+  validates_uniqueness_of   :name
+  validates_uniqueness_of   :code, :allow_blank => true
   validates_numericality_of :amount
   
   # This will override the default scope

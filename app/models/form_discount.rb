@@ -9,7 +9,7 @@ class FormDiscount
     
     case process
     when 'add'
-      if @discount = ShopDiscount.find_by_code(discount_code)
+      if @discount = (discount_code.presence && ShopDiscount.find_by_code(discount_code))
         @discountable = @discount.discountables.create(:discounted_id => @order.id, :discounted_type => @order.class.name)
         @result[process.to_sym] = @discountable.valid?
       end
