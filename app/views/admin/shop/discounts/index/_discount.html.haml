@@ -7,7 +7,7 @@
       - body.code do
         %span.code.attribute= discount.code
       - body.amount do
-        %span.amount.attribute= discount.amount
+        %span.amount.attribute= number_to_percentage discount.amount, :precision => 0
       - body.modify do
         .modify
           %span.remove= link_to t('remove'), [:remove_admin, discount]
