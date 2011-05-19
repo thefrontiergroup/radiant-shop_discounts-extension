@@ -28,8 +28,8 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
       @inputs   << 'amount'
       @inputs   << 'code'
       
-      @meta     << 'start'
-      @meta     << 'finish'
+      # @meta     << 'start'
+      # @meta     << 'finish'
     end
     
     def config_edit
@@ -41,8 +41,8 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
       @inputs   << 'amount'
       @inputs   << 'code'
       
-      @meta     << 'start'
-      @meta     << 'finish'
+      # @meta     << 'start'
+      # @meta     << 'finish'
       
       @parts    << 'categories'
       @parts    << 'products'
