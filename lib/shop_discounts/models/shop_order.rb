@@ -4,7 +4,9 @@ module ShopDiscounts
       
       def self.included(base)
         base.class_eval do
-                    
+          
+          after_save :apply_customer_discounts, :if => :customer_id_changed?
+
           # Assigns discounts based off the customers discounts
           def apply_customer_discounts
             if customer.present?
