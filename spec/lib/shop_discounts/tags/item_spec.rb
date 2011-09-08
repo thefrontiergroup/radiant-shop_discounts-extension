@@ -93,7 +93,21 @@ describe ShopDiscounts::Tags::Item do
         end
       end
     end
-    
+
+    describe '<r:shop:cart:item:discount_code' do
+      it 'should return the discount code for the product' do
+
+        @line_item.discount_code = 'FGHZ'
+        @line_item.save
+
+        tag = %{<r:shop:cart:item:discount_code />}
+        exp = 'FGHZ'
+
+        @page.should render(tag).as(exp)
+
+      end
+    end
+
   end
-  
+
 end

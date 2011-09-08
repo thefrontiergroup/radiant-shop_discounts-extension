@@ -4,6 +4,8 @@ module ShopDiscounts
       
       def self.included(base)
         base.class_eval do
+
+          attr_accessor :discount_code
           
           def create_with_discounts
             @result = create_without_discounts

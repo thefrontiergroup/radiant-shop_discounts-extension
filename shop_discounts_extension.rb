@@ -16,7 +16,7 @@ class ShopDiscountsExtension < Radiant::Extension
       add_item "Discounts", "/admin/shop/discounts", :before => "Orders"
     end
     
-    ShopLineItem.send :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Purchaseable
+    ShopLineItem.send :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Purchaseable, ShopDiscounts::Models::DiscountCodes
     
     ShopProduct.send  :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::ShopProduct
     ShopOrder.send    :include, ShopDiscounts::Models::OrderDiscountable, ShopDiscounts::Models::ShopOrder
