@@ -27,8 +27,9 @@ describe Admin::Shop::DiscountsController do
       it 'should be assigned' do
         get :new
         
-        assigns(:inputs).should   include('name','amount','code')
-        assigns(:meta).should     include('start','finish')
+        #assigns(:inputs).should   include('name','amount','code')
+        assigns(:inputs).should   include('name','amount')
+        #assigns(:meta).should     include('start','finish')
         assigns(:buttons).should  include()
         assigns(:parts).should    include()
         assigns(:popups).should   include()
@@ -41,8 +42,9 @@ describe Admin::Shop::DiscountsController do
       it 'should be assigned' do
         get :edit, :id => shop_discounts(:ten_percent).id
         
-        assigns(:inputs).should   include('name','amount','code')
-        assigns(:meta).should     include('start','finish')
+        #assigns(:inputs).should   include('name','amount','code')
+        assigns(:inputs).should   include('name','amount')
+        #assigns(:meta).should     include('start','finish')
         assigns(:buttons).should  include('browse_categories', 'browse_products','browse_users')
         assigns(:parts).should    include('categories', 'products','users')
         assigns(:popups).should   include('browse_categories', 'browse_products','browse_users')
@@ -55,8 +57,9 @@ describe Admin::Shop::DiscountsController do
       it 'should be assigned' do
         post :create, :shop_variant => {}
         
-        assigns(:inputs).should   include('name','amount','code')
-        assigns(:meta).should     include('start','finish')
+        #assigns(:inputs).should   include('name','amount','code')
+        assigns(:inputs).should   include('name','amount')
+        #assigns(:meta).should     include('start','finish')
         assigns(:buttons).should  include()
         assigns(:parts).should    include()
         assigns(:popups).should   include()
@@ -69,8 +72,9 @@ describe Admin::Shop::DiscountsController do
       it 'should be assigned' do
         put :update, :id => shop_discounts(:ten_percent).id, :shop_variant => {}
         
-        assigns(:inputs).should   include('name','amount','code')
-        assigns(:meta).should     include('start','finish')
+        #assigns(:inputs).should   include('name','amount','code')
+        assigns(:inputs).should   include('name','amount')
+        #assigns(:meta).should     include('start','finish')
         assigns(:buttons).should  include('browse_categories', 'browse_products','browse_users')
         assigns(:parts).should    include('categories', 'products','users')
         assigns(:popups).should   include('browse_categories', 'browse_products','browse_users')

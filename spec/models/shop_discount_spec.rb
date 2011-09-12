@@ -42,6 +42,7 @@ describe ShopDiscount do
     
     context 'code' do
       it 'should require' do
+        pending
         @discount.code = nil
         @discount.valid?.should === false
       end

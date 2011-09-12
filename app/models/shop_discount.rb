@@ -19,7 +19,7 @@ class ShopDiscount < ActiveRecord::Base
   has_many    :categories,  :through => :discountables_categories, :source => :category, :conditions => "shop_discountables.discounted_type = 'ShopCategory'"
   
   has_many    :discountables_orders,      :class_name => 'ShopDiscountableOrder',    :foreign_key  => :discount_id
-  has_many    :orders,      :through => :discountable_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
+  has_many    :orders,      :through => :discountables_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
 
   
   validates_presence_of     :name, :amount
