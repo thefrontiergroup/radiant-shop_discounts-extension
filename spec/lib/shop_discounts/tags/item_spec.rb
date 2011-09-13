@@ -8,13 +8,13 @@ describe ShopDiscounts::Tags::Item do
   dataset :pages, :shop_orders, :shop_line_items, :shop_discounts, :shop_discountables
 
   it 'should describe these tags' do
-    ShopDiscounts::Tags::Item.tags.sort.should == [
+    ShopDiscounts::Tags::Item.tags.sort.should include [
       'shop:cart:item:value',
       'shop:cart:item:discount',
       'shop:cart:item:discounted',
       'shop:cart:item:rrp',
       'shop:cart:item:if_discounted',
-      'shop:cart:item:unless_discounted'].sort
+      'shop:cart:item:unless_discounted']
   end
 
   context 'page tags' do
