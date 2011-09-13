@@ -28,6 +28,15 @@ class ShopDiscountablesDataset < Dataset::Base
       :discounted_id   => users(:admin).id,
       :discounted_type => users(:admin).class.name
       
+    create_record :shop_discountables, :bread_box_discount_crusty_bread,
+      :discount_id     => shop_discounts(:bread_box_discount).id,
+      :discounted_id   => shop_products(:crusty_bread).id,
+      :discounted_type => shop_products(:crusty_bread).class.name
+
+    create_record :shop_discountables, :bread_box_discount_soft_bread,
+      :discount_id     => shop_discounts(:bread_box_discount).id,
+      :discounted_id   => shop_products(:soft_bread).id,
+      :discounted_type => shop_products(:soft_bread).class.name
   end
     
 end

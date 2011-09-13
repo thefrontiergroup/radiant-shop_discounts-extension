@@ -2,9 +2,10 @@ class ShopDiscount < ActiveRecord::Base
 
   # Return all discounts which are valid
   default_scope :conditions => [
-    '(starts_at IS NULL and finishes_at IS NULL) OR (starts_at >= :now AND finishes_at <= :now) OR (starts_at IS NULL and finishes_at <= :now)', 
+    '(starts_at IS NULL and finishes_at IS NULL) OR (starts_at >= :now AND finishes_at <= :now) OR (starts_at IS NULL and finishes_at <= :now)',
     { :now => Time.now }
   ]
+  named_scope :package_discounts, :conditions => {:package => true}
   
   belongs_to  :created_by,  :class_name => 'User'
   belongs_to  :updated_by,  :class_name => 'User'
@@ -19,7 +20,7 @@ class ShopDiscount < ActiveRecord::Base
   has_many    :categories,  :through => :discountables_categories, :source => :category, :conditions => "shop_discountables.discounted_type = 'ShopCategory'"
   
   has_many    :discountables_orders,      :class_name => 'ShopDiscountableOrder',    :foreign_key  => :discount_id
-  has_many    :orders,      :through => :discountable_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
+  has_many    :orders,      :through => :discountables_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
 
   
   validates_presence_of     :name, :amount
