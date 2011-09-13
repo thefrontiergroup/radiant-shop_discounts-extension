@@ -1,0 +1,4 @@
+%p.matching
+  To be eligible for the discount, the shopping cart must match
+  = f.collection_select :package, [['all', true], ['any', false]], :last, :first
+  of the specified products.
