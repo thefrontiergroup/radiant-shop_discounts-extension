@@ -9,9 +9,35 @@ module ShopDiscounts
 
           # Assigns discounts based off the customers discounts
           def apply_customer_discounts
-            if customer.present?
-              customer.discounts.each do |discount|
-                ShopDiscountable.create(:discount_id => discount.id, :discounted_id => self.id, :discounted_type => self.class.name)
+            return if customer.nil?
+            customer.discounts.each do |discount|
+              discountables.create(:discount => discount)
+            end
+          end
+
+          def line_item_added(line_item)
+            create_applicable_package_discounts(line_item)
+          end
+
+          def line_item_removed(line_item)
+            remove_ineligible_package_discounts(line_item)
+          end
+
+          def possible_discounts?
+            # FIXME: TEST
+            possible_discounts.any?
+          end
+
+          # Get a list of discounts this shopping cart might be eligible for if
+          # some more products are added
+          def possible_discounts
+            discounts = Set.new
+            line_items.each do |line_item|
+              line_item.item.discounts.package_discounts.each do |discount|
+                unless has_all_products_for_discount?(discount)
+                  discounts << discount
+                end
+>>>>>>> Stashed changes
               end
             end
           end
