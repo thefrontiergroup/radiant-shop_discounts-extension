@@ -31,9 +31,6 @@ module ShopDiscounts
         tag.locals.current_discount.total_products_price_without_discount
       end
 
-
-      # TODO: Fix Below
-
       desc 'Expands the child tags for each product that makes part of the current discount'
       tag 'shop:discount:products:each' do |tag|
         tag.locals.current_discount.products.inject('') do |content, product|
