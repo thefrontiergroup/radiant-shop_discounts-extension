@@ -30,10 +30,10 @@ describe ShopDiscounts::Tags::Discount do
 
   end
 
-  describe 'shop:discount:total_price' do
+  describe 'shop:discount:total_price_with_discount' do
 
     it 'should output the total price of the products minus discount' do
-      tag = %{<r:shop:discount name="bread box discount"><r:total_price/></r:shop:discount>}
+      tag = %{<r:shop:discount name="bread box discount"><r:total_price_with_discount/></r:shop:discount>}
       # First product is $10.00 second is $11.00 ($21 total) with 10% off is $18.90
       exp = %{$18.90}
 
@@ -41,5 +41,57 @@ describe ShopDiscounts::Tags::Discount do
     end
 
   end
+
+  describe 'shop:discount:total_price_without_discount' do
+
+    it 'should output the total price of the products' do
+      tag = %{<r:shop:discount name="bread box discount"><r:total_price_without_discount/></r:shop:discount>}
+      # First product is $10.00 second is $11.00 = $21 total
+      exp = %{$21.00}
+
+      page.should render(tag).as(exp)
+    end
+
+  end
+
+  describe 'shop:discount:name' do
+
+    it 'should output the total price of the products' do
+      tag = %{<r:shop:discount name="bread box discount"><r:name/></r:shop:discount>}
+      exp = %{bread box discount}
+
+      page.should render(tag).as(exp)
+    end
+
+  end
+
+  describe 'shop:discount:products:each' do
+    it 'expands the tag' do
+      tag = %{<r:shop:discount name="bread box discount"><r:products:each>lollipop </r:products:each></r:shop:discount>}
+      # There are 2 products so it should loop twice
+      exp = 'lollipop lollipop '
+
+      page.should render(tag).as(exp)
+    end
+  end
+
+  describe 'shop:discount:products:each:name' do
+    it 'expands the tag' do
+      tag = %{<r:shop:discount name="bread box discount"><r:products:each><r:name/> </r:products:each></r:shop:discount>}
+      exp = 'soft bread crusty bread '
+
+      page.should render(tag).as(exp)
+    end
+  end
+
+  describe 'shop:discount:products:each:description' do
+    it 'expands the tag' do
+      tag = %{<r:shop:discount name="bread box discount"><r:products:each><r:description/> </r:products:each></r:shop:discount>}
+      exp = '*soft bread* *crusty bread* '
+
+      page.should render(tag).as(exp)
+    end
+  end
+
 
 end
