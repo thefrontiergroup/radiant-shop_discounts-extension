@@ -9,15 +9,21 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
   end
 
   it 'should describe the possible discount tags' do
-    ShopDiscounts::Tags::Item.tags.should include [
+    ShopDiscounts::Tags::PossibleDiscounts.tags.should =~ [
       'shop:cart:if_possible_discount',
       'shop:cart:unless_possible_discount',
       'shop:cart:possible_discounts',
       'shop:cart:possible_discounts:each',
+      'shop:cart:possible_discounts:each:eligible_products',
+      'shop:cart:possible_discounts:each:eligible_products:description',
+      'shop:cart:possible_discounts:each:eligible_products:if_multiple',
+      'shop:cart:possible_discounts:each:eligible_products:unless_multiple',
       'shop:cart:possible_discounts:each:name',
       'shop:cart:possible_discounts:each:amount',
+      'shop:cart:possible_discounts:each:products',
       'shop:cart:possible_discounts:each:products:each',
-      'shop:cart:possible_discounts:each:products:each:product']
+      'shop:cart:possible_discounts:each:products:each:name',
+      'shop:cart:possible_discounts:each:products:each:price']
   end
 
   context 'package discounts' do
@@ -88,6 +94,42 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
         end
       end
 
+      describe 'shop:cart:possible_discounts:each:eligible_products' do
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:possible_discounts:each:eligible_products>round and round</r:shop:cart:possible_discounts:each:eligible_products>}
+          exp = %{round and round}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
+      describe 'shop:cart:possible_discounts:each:eligible_products:description' do
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:possible_discounts:each:eligible_products><r:description/></r:shop:cart:possible_discounts:each:eligible_products>}
+          exp = %{crusty bread}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
+      describe 'shop:cart:possible_discounts:each:eligible_products:if_multiple' do
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:possible_discounts:each:eligible_products:if_multiple>there is only one item in this cart</r:shop:cart:possible_discounts:each:eligible_products:if_multiple>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
+      describe 'shop:cart:possible_discounts:each:eligible_products:unless_multiple' do
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:possible_discounts:each:eligible_products:unless_multiple>reece's pieces</r:shop:cart:possible_discounts:each:eligible_products:unless_multiple>}
+          exp = %{reece's pieces}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
       describe 'shop:cart:possible_discounts:each:name' do
         it 'expands the tag' do
           tag = %{<r:shop:cart:possible_discounts:each><r:name/></r:shop:cart:possible_discounts:each>}
@@ -108,14 +150,29 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
 
       describe 'shop:cart:possible_discounts:each:products:each' do
         it 'expands the tag' do
-          tag = %{<r:shop:cart:possible_discounts:each><r:products:each>lollipop </r:products:each></r:shop:cart:possible_discounts:each>}
-
-          # There are 2 products
-          exp = 'lollipop lollipop '
+          tag = %{<r:shop:cart:possible_discounts:each><r:products:each>lollipop</r:products:each></r:shop:cart:possible_discounts:each>}
+          exp = 'lollipop'
 
           @page.should render(tag).as(exp)
         end
+      end
 
+      describe 'shop:cart:possible_discounts:each:products:each:product_name' do
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:possible_discounts:each:products:each><r:name/></r:shop:cart:possible_discounts:each:products:each>}
+          exp = 'soft bread'
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
+      describe 'shop:cart:possible_discounts:each:products:each:product_price' do
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:possible_discounts:each:products:each><r:price/></r:shop:cart:possible_discounts:each:products:each>}
+          exp = '$10'
+
+          @page.should render(tag).as(exp)
+        end
       end
     end
 
