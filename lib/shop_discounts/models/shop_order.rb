@@ -42,6 +42,14 @@ module ShopDiscounts
             discounts
           end
 
+          def products_in_discount(discount)
+            line_items.map(&:item) & discount.products
+          end
+
+          def missing_products_for_discount(discount)
+            discount.products - line_items.map(&:item)
+          end
+
           class << self
             alias_method :original_find_by_session, :find_by_session
             def find_by_session(session)

@@ -50,6 +50,14 @@ describe ShopOrder do
           crusty_bread.discount.should == 0
         end
 
+        it 'returns soft bread when asked what product is missing for the bread box discount' do
+          cart.missing_products_for_discount(bread_box_discount).should include shop_products(:soft_bread)
+        end
+
+        it 'returns crusty bread when asked what product is in the bread box discount' do
+          cart.products_in_discount(bread_box_discount).should include shop_products(:crusty_bread)
+        end
+
         context 'and soft bread is added' do
           let!(:soft_bread) { cart.line_items.create :item => shop_products(:soft_bread), :quantity => 1, :item_price => 19 }
 
@@ -76,6 +84,14 @@ describe ShopOrder do
 
             it 'soft bread is not discounted' do
               soft_bread.discount.should == 0
+            end
+
+            it 'returns crusty bread when asked what product is missing for the bread box discount' do
+              cart.missing_products_for_discount(bread_box_discount).should include shop_products(:crusty_bread)
+            end
+
+            it 'returns soft bread when asked what product is in the bread box discount' do
+              cart.products_in_discount(bread_box_discount).should include shop_products(:soft_bread)
             end
           end
         end
