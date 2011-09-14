@@ -1,5 +1,7 @@
 class ShopDiscount < ActiveRecord::Base
 
+  include ActionView::Helpers::NumberHelper
+
   # Return all discounts which are valid
   default_scope :conditions => [
     '(starts_at IS NULL and finishes_at IS NULL) OR (starts_at >= :now AND finishes_at <= :now) OR (starts_at IS NULL and finishes_at <= :now)',
@@ -48,9 +50,15 @@ class ShopDiscount < ActiveRecord::Base
 
   # Returns the total price of all products that are associated with the
   # discount, the total price returned will include the discount
-  def total_products_price
+  def total_products_price_with_discount
     total_price = products.sum(:price)
-    total_price - ((amount / 100.0) * total_price)
+    number_to_currency(total_price - ((amount / 100.0) * total_price))
+  end
+
+  # Returns the total price of all products that are associated with
+  # the discount, the total price returned will not include the discount
+  def total_products_price_without_discount
+    number_to_currency(products.sum(:price))
   end
 
 end

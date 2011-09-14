@@ -128,7 +128,7 @@ describe ShopDiscount do
     end
   end
 
-  describe '#total_products_price' do
+  describe '#total_products_price_with_discount' do
 
     let(:discount) { shop_discounts(:ten_percent) }
 
@@ -139,7 +139,23 @@ describe ShopDiscount do
 
     it 'should return the total price of all products minus the discount' do
       # First product is $10 and second is $11 so total is ($21 - 10% discount) == $18.90
-      discount.total_products_price.should == 18.90
+      discount.total_products_price_with_discount.should == '$18.90'
+    end
+
+  end
+
+  describe '#total_products_price_without_discount' do
+
+    let(:discount) { shop_discounts(:ten_percent) }
+
+    before :each do
+      discount.discountables.create(:discounted => shop_products(:full_milk))
+      discount.discountables.create(:discounted => shop_products(:hilo_milk))
+    end
+
+    it 'should return the total price of all products' do
+      # First product is $10 and second is $11 so total is $21
+      discount.total_products_price_without_discount.should == '$21.00'
     end
 
   end

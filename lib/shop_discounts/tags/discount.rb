@@ -13,8 +13,7 @@ module ShopDiscounts
 
       desc %{Outputs the total price of all products in the package with discount included}
       tag 'shop:discount:total_price' do |tag|
-        debugger
-        true
+        tag.locals.current_discount.total_products_price
       end
 
     end
