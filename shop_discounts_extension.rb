@@ -23,7 +23,7 @@ class ShopDiscountsExtension < Radiant::Extension
     ShopCategory.send :include, ShopDiscounts::Models::CategoryDiscountable
     User.send         :include, ShopDiscounts::Models::Discountable
     
-    Page.send         :include, ShopDiscounts::Tags::Cart, ShopDiscounts::Tags::Item, ShopDiscounts::Tags::PossibleDiscounts
+    Page.send         :include, ShopDiscounts::Tags::Cart, ShopDiscounts::Tags::Item, ShopDiscounts::Tags::PossibleDiscounts, ShopDiscounts::Tags::Discount
     
     FormLineItem.send :include, ShopDiscounts::Models::FormLineItem
   end
