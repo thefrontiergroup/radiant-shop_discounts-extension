@@ -51,14 +51,21 @@ class ShopDiscount < ActiveRecord::Base
   # Returns the total price of all products that are associated with the
   # discount, the total price returned will include the discount
   def total_products_price_with_discount
-    total_price = products.sum(:price)
-    number_to_currency(total_price - ((amount / 100.0) * total_price))
+    number_to_currency(total_price - discount_amount)
   end
 
   # Returns the total price of all products that are associated with
   # the discount, the total price returned will not include the discount
   def total_products_price_without_discount
     number_to_currency(products.sum(:price))
+  end
+
+  def discount_amount
+    (amount / 100.0) * total_price
+  end
+  
+  def total_price
+    products.sum(:price)
   end
 
 end

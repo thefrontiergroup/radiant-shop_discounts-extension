@@ -39,6 +39,10 @@ describe ShopOrder do
         cart.possible_discounts.should_not include bread_box_discount
       end
 
+      it '#possible_discounts? returns false' do
+        cart.possible_discounts?.should be_false
+      end
+
       context 'when crusty bread is added' do
         let!(:crusty_bread) { cart.line_items.create :item => shop_products(:crusty_bread), :quantity => 1, :item_price => 13 }
 
@@ -58,6 +62,10 @@ describe ShopOrder do
           cart.products_in_discount(bread_box_discount).should include shop_products(:crusty_bread)
         end
 
+        it '#possible_discounts? returns true' do
+          cart.possible_discounts?.should be_true
+        end
+
         context 'and soft bread is added' do
           let!(:soft_bread) { cart.line_items.create :item => shop_products(:soft_bread), :quantity => 1, :item_price => 19 }
 
@@ -71,6 +79,10 @@ describe ShopOrder do
 
           it 'soft bread is discounted' do
             soft_bread.discount.should == 0.1
+          end
+
+          it '#possible_discounts? returns false' do
+            cart.possible_discounts?.should be_false
           end
 
           context 'and crusty bread is removed' do
@@ -92,6 +104,10 @@ describe ShopOrder do
 
             it 'returns soft bread when asked what product is in the bread box discount' do
               cart.products_in_discount(bread_box_discount).should include shop_products(:soft_bread)
+            end
+
+            it '#possible_discounts? returns true' do
+              cart.possible_discounts?.should be_true
             end
           end
         end

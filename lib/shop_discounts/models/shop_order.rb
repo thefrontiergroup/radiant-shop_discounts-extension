@@ -24,7 +24,6 @@ module ShopDiscounts
           end
 
           def possible_discounts?
-            # FIXME: TEST
             possible_discounts.any?
           end
 
