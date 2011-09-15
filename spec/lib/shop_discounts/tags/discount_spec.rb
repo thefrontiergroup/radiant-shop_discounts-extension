@@ -75,8 +75,18 @@ describe ShopDiscounts::Tags::Discount do
     end
   end
 
+  describe 'shop:discount:products:each:id' do
+    it 'prints the id of the product' do
+      tag = %{<r:shop:discount name="bread box discount"><r:products:each><r:id/> </r:products:each></r:shop:discount>}
+      exp = "#{bread_box_discount.products.first.id} #{bread_box_discount.products.last.id} "
+
+      page.should render(tag).as(exp)
+    end
+  end
+
+
   describe 'shop:discount:products:each:name' do
-    it 'expands the tag' do
+    it 'prints the name of the product' do
       tag = %{<r:shop:discount name="bread box discount"><r:products:each><r:name/> </r:products:each></r:shop:discount>}
       exp = 'soft bread crusty bread '
 
@@ -85,7 +95,7 @@ describe ShopDiscounts::Tags::Discount do
   end
 
   describe 'shop:discount:products:each:description' do
-    it 'expands the tag' do
+    it 'prints the description of the product' do
       tag = %{<r:shop:discount name="bread box discount"><r:products:each><r:description/> </r:products:each></r:shop:discount>}
       exp = '*soft bread* *crusty bread* '
 

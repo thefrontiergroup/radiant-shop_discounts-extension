@@ -39,6 +39,11 @@ module ShopDiscounts
         end
       end
 
+      desc 'Prints the ID of the product that is eligible for a discount'
+      tag 'shop:discount:products:each:id' do |tag|
+        tag.locals.discounted_product.id
+      end
+
       desc 'Prints the name of the product that is eligible for a discount'
       tag 'shop:discount:products:each:name' do |tag|
         tag.locals.discounted_product.name
