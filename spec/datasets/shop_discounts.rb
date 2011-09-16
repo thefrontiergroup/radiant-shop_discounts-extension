@@ -1,4 +1,4 @@
-class ShopDiscountsDataset < Dataset::Base  
+class ShopDiscountsDataset < Dataset::Base
   
   def load
     create_record :shop_discounts, :ten_percent,
@@ -29,6 +29,11 @@ class ShopDiscountsDataset < Dataset::Base
       :amount      => 100,
       :starts_at   => Time.now - 5.days,
       :finishes_at => Time.now - 2.days
+
+    create_record :shop_discounts, :bread_box_discount,
+      :name        => 'bread box discount',
+      :amount      => 10,
+      :package     => true
   end
   
 end
