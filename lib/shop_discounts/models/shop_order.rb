@@ -7,6 +7,10 @@ module ShopDiscounts
 
           after_save :apply_customer_discounts, :if => :customer_id_changed?
 
+          def all_discounts
+            (discounts + line_items.map(&:discounts)).flatten.uniq
+          end
+
           # Assigns discounts based off the customers discounts
           def apply_customer_discounts
             return if customer.nil?
