@@ -1,3 +1,10 @@
+# Load CI reporte gem
+begin
+  require 'ci/reporter/rake/rspec'
+rescue LoadError => error
+  puts "CI Reporter gem is not loaded: #{error.message}"
+end
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
