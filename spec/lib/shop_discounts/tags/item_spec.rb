@@ -14,6 +14,8 @@ describe ShopDiscounts::Tags::Item do
       'shop:cart:item:discounted',
       'shop:cart:item:rrp',
       'shop:cart:item:if_discounted',
+      'shop:cart:item:if_discounted_with_code',
+      'shop:cart:item:unless_discounted_with_code',
       'shop:cart:item:discount_code',
       'shop:cart:item:unless_discounted'].sort
   end
@@ -69,6 +71,94 @@ describe ShopDiscounts::Tags::Item do
           @page.should render(tag).as(exp)
         end
       end
+    end
+
+    describe '<r:shop:cart:item:if_discounted_with_code />' do
+      context 'item is discounted but not with a code' do
+
+        it 'should not expand' do
+          tag = %{<r:shop:cart:item:if_discounted_with_code>failure</r:shop:cart:item:if_discounted_with_code>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+
+      end
+
+      context 'item is discounted with a code' do
+
+        before :each do
+          code = @line_item.discounts.first.code
+          @line_item.update_attributes(:discount_code => code)
+        end
+
+        it 'should expand' do
+          tag = %{<r:shop:cart:item:if_discounted_with_code>success</r:shop:cart:item:if_discounted_with_code>}
+          exp = %{success}
+
+          @page.should render(tag).as(exp)
+        end
+
+      end
+
+      context 'item is not discounted' do
+        before :each do
+          @line_item.discounts.delete_all
+        end
+
+        it 'should not expand' do
+          tag = %{<r:shop:cart:item:if_discounted_with_code>failure</r:shop:cart:item:if_discounted_with_code>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+
+      end
+
+    end
+
+    describe '<r:shop:cart:item:unless_discounted_with_code />' do
+      context 'item is discounted but not with a code' do
+
+        it 'should expand' do
+          tag = %{<r:shop:cart:item:unless_discounted_with_code>success</r:shop:cart:item:unless_discounted_with_code>}
+          exp = %{success}
+
+          @page.should render(tag).as(exp)
+        end
+
+      end
+
+      context 'item is discounted with a code' do
+
+        before :each do
+          code = @line_item.discounts.first.code
+          @line_item.update_attributes(:discount_code => code)
+        end
+
+        it 'should not expand' do
+          tag = %{<r:shop:cart:item:unless_discounted_with_code>failure</r:shop:cart:item:unless_discounted_with_code>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+
+      end
+
+      context 'item is not discounted' do
+        before :each do
+          @line_item.discounts.delete_all
+        end
+
+        it 'should expand' do
+          tag = %{<r:shop:cart:item:unless_discounted_with_code>success</r:shop:cart:item:unless_discounted_with_code>}
+          exp = %{success}
+
+          @page.should render(tag).as(exp)
+        end
+
+      end
+
     end
 
     describe '<r:shop:cart:item:unless_discounted />' do

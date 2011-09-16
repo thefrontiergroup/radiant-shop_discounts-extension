@@ -17,6 +17,20 @@ module ShopDiscounts
         tag.locals.shop_line_item.discount_code
       end
 
+      desc %{ expands if the item has a discount applied with a discount code }
+      tag 'shop:cart:item:if_discounted_with_code' do |tag|
+        item = tag.locals.shop_line_item
+
+        tag.expand if item.discounts.any? { |discount| discount.code == item.discount_code }
+      end
+
+      desc %{ expands if the item does not have a discount applied with a discount code }
+      tag 'shop:cart:item:unless_discounted_with_code' do |tag|
+        item = tag.locals.shop_line_item
+
+        tag.expand unless item.discounts.any? { |discount| discount.code == item.discount_code }
+      end
+
       desc %{ expands if the item has a discount}
       tag "shop:cart:item:if_discounted" do |tag|
         item = tag.locals.shop_line_item
