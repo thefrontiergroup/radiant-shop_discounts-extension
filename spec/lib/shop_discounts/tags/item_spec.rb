@@ -14,7 +14,6 @@ describe ShopDiscounts::Tags::Item do
       'shop:cart:item:discounted',
       'shop:cart:item:rrp',
       'shop:cart:item:if_discounted',
-      'shop:cart:item:unless_discounted',
       'shop:cart:item:discount_code',
       'shop:cart:item:unless_discounted'].sort
   end
