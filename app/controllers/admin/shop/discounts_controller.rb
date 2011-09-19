@@ -26,6 +26,7 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
     def config_new
       @inputs   << 'name'
       @inputs   << 'amount'
+      @inputs   << 'code'
       @inputs   << 'packages'
       # @inputs   << 'code'
       
@@ -40,6 +41,7 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
       
       @inputs   << 'name'
       @inputs   << 'amount'
+      @inputs   << 'code'
       @inputs   << 'packages'
       # @inputs   << 'code'
       

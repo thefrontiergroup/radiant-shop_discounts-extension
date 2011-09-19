@@ -8,7 +8,7 @@ en:
   browse_categories: Browse Categories
   browse_users: Browse Users
   discount_amount: Amount (Percentage)
-  code: Code
+  code: Discount Code (Leave blank if no discount code is required)
   starts: Starts On
   finishes: Finishes On
   remove_discount: Remove Discount
