@@ -29,6 +29,26 @@ describe ShopOrder do
     
   end
 
+  describe '#all_discounts' do
+    let!(:bread_box_discount) { shop_discounts(:bread_box_discount) }
+    let(:cart) { shop_orders(:empty) }
+
+    subject { cart.all_discounts }
+
+    it 'returns an empty array' do
+      should == []
+    end
+
+    context 'has a line item discount' do
+      let!(:crusty_bread) { cart.line_items.create :item => shop_products(:crusty_bread), :quantity => 1, :item_price => 13 }
+      let!(:soft_bread) { cart.line_items.create :item => shop_products(:soft_bread), :quantity => 1, :item_price => 19 }
+
+      it 'returns the bread box discount' do
+        should == [bread_box_discount]
+      end
+    end
+  end
+
   context 'packaged discounts' do
     let!(:bread_box_discount) { shop_discounts(:bread_box_discount) }
 
