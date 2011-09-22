@@ -5,7 +5,10 @@
       - body.name do
         %span.name.attribute= link_to discount.name, [:edit_admin, discount]
       - body.amount do
-        %span.amount.attribute= number_to_percentage discount.amount, :precision => 0
+        - if discount.amount_type.eql?('percentage')
+          %span.amount.attribute= number_to_percentage discount.amount, :precision => 0
+        - else
+          %span.amount.attribute= number_to_currency discount.amount, :precision => 2
       - body.code do
         - nil
       - body.modify do

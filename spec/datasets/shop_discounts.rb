@@ -32,7 +32,8 @@ class ShopDiscountsDataset < Dataset::Base
 
     create_record :shop_discounts, :bread_box_discount,
       :name        => 'bread box discount',
-      :amount      => 10,
+      :amount      => 3,
+      :amount_type => 'currency',
       :package     => true
   end
   

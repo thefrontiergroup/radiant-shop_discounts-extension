@@ -20,7 +20,6 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
       'shop:cart:possible_discounts:each:eligible_products:unless_multiple',
       'shop:cart:possible_discounts:each:name',
       'shop:cart:possible_discounts:each:amount',
-      'shop:cart:possible_discounts:each:rate',
       'shop:cart:possible_discounts:each:products',
       'shop:cart:possible_discounts:each:products:each',
       'shop:cart:possible_discounts:each:products:each:name',
@@ -140,19 +139,10 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
         end
       end
 
-      describe 'shop:cart:possible_discounts:each:rate' do
-        it 'expands the tag' do
-          tag = %{<r:shop:cart:possible_discounts:each><r:rate/></r:shop:cart:possible_discounts:each>}
-          exp = '10.0%'
-
-          @page.should render(tag).as(exp)
-        end
-      end
-
       describe 'shop:cart:possible_discounts:each:amount' do
         it 'expands the tag' do
           tag = %{<r:shop:cart:possible_discounts:each><r:amount/></r:shop:cart:possible_discounts:each>}
-          exp = '$2'
+          exp = '$3'
 
           @page.should render(tag).as(exp)
         end

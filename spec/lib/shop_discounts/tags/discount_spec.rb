@@ -34,8 +34,8 @@ describe ShopDiscounts::Tags::Discount do
 
     it 'should output the total price of the products minus discount' do
       tag = %{<r:shop:discount name="bread box discount"><r:total_price_with_discount/></r:shop:discount>}
-      # First product is $10.00 second is $11.00 ($21 total) with 10% off is $18.90
-      exp = %{$18.90}
+      # First product is $10.00 second is $11.00 ($21 total) with $3 off is $18
+      exp = %{$18.00}
 
       page.should render(tag).as(exp)
     end

@@ -55,11 +55,6 @@ module ShopDiscounts
         tag.locals.possible_discount.name
       end
 
-      desc 'The amount of the possible discount as a percentage'
-      tag 'shop:cart:possible_discounts:each:rate' do |tag|
-        "#{tag.locals.possible_discount.amount}%"
-      end
-
       desc 'The amount of the possible discount in dollars'
       tag 'shop:cart:possible_discounts:each:amount' do |tag|
         Shop::Tags::Helpers.currency(tag.locals.possible_discount.discount_amount)
