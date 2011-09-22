@@ -5,33 +5,36 @@ module ShopDiscounts
       def self.included(base)
         base.class_eval do
 
-          def discount
-            discount = discounts.regular_discounts.sum(:amount)
+          def per_item_discount
+            discounts.regular_discounts.inject('0'.to_d) do |total, discount|
+              case discount.amount_type
+              when 'currency' then discount.amount
+              else discount.amount / '100'.to_d * item_price
+              end + total
+            end
+          end
 
-            # Maximum discount is 100%
-            discount = [discount, BigDecimal.new('100.0')].min
+          def total_discount
+            per_item_discount * quantity
+          end
 
-            # Convert to a percentage
-            discount * BigDecimal.new('0.01')
+          def discounted_price
+            item_price - per_item_discount
           end
 
           def discounted?
-            discount > 0
-          end
-
-          def discounted
-            (rrp * discount)
+            per_item_discount > 0
           end
 
           alias_method :rrp, :cost
           def cost
-            cost = (item_price * quantity) - ((item_price * quantity) *discount)
+            cost = discounted_price * quantity
             cost -= tax if Radiant::Config['shop.tax_strategy'] === 'exclusive'
             cost
           end
 
           def tax
-            percentage = Radiant::Config['shop.tax_percentage'].to_f * 0.01
+            percentage = Radiant::Config['shop.tax_percentage'].to_d / '100'.to_d
 
             case Radiant::Config['shop.tax_strategy']
             when 'inclusive'
@@ -46,7 +49,7 @@ module ShopDiscounts
           end
 
           def price
-            rrp - discounted
+            rrp - total_discount
           end
         end
       end

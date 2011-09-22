@@ -7,7 +7,7 @@ en:
   browse_products: Browse Products
   browse_categories: Browse Categories
   browse_users: Browse Users
-  discount_amount: Amount (Percentage)
+  discount_amount: Amount
   code: Discount Code (Leave blank if no discount code is required)
   starts: Starts On
   finishes: Finishes On

@@ -17,39 +17,55 @@ describe ShopDiscounts::Models::Purchaseable do
     end
   end
 
-  describe '#discount' do
-    context 'single discount' do
-      it 'should return the value of that discount as a percentage' do
-        shop_line_items(:one).discount.should === (shop_discounts(:ten_percent).amount * 0.01)
-      end
+  describe '#per_item_discount' do
+    it 'returns the discount in $ ($1.1)' do
+      shop_line_items(:one).per_item_discount.should == 1.1
     end
-    context 'multiple discounts' do
-      before :each do
-        ShopDiscountable.create(:discount => shop_discounts(:five_percent), :discounted => shop_line_items(:one))
+
+    context 'when amount is specified in currency' do
+      before do
+        shop_discounts(:ten_percent).update_attributes!(:amount_type => 'currency')
       end
-      it 'should attach all discounts to the item' do
-        shop_line_items(:one).discount.should == 0.15
-      end
-    end
-    context 'too many discounts' do
-      before :each do
-        ShopDiscountable.create(:discount => shop_discounts(:hundred_percent), :discounted => shop_line_items(:one))
-      end
-      it 'should return a capped discount amount' do
-        shop_line_items(:one).discount.should == 1
+
+      it 'returns the discount in $ ($10)' do
+        shop_line_items(:one).per_item_discount.should == 10
       end
     end
   end
 
-  describe '#discounted' do
-    it 'should return how much has been taken off the product' do
-      shop_line_items(:one).discounted.should === (shop_line_items(:one).item.price * 0.1)
+  describe '#total_discount' do
+    it 'returns the discount in $ ($1.1)' do
+      shop_line_items(:one).total_discount.should == 1.1
+    end
+
+    context 'there are multiple items' do
+      before do
+        shop_line_items(:one).update_attributes!(:quantity => 3)
+      end
+
+      it 'returns the discount in $ ($3.3)' do
+        shop_line_items(:one).total_discount.should == 3.3
+      end
+    end
+  end
+
+  describe '#discounted?' do
+    subject { shop_line_items(:one).discounted? }
+
+    it { should be_true }
+
+    context 'discount is removed' do
+      before do
+        shop_line_items(:one).discounts.destroy_all
+      end
+
+      it { should be_false }
     end
   end
 
   describe '#price' do
     it 'should return the discounted price of the product' do
-      shop_line_items(:one).price.should === (shop_line_items(:one).value - shop_line_items(:one).discounted)
+      shop_line_items(:one).price.should === shop_line_items(:one).discounted_price
     end
   end
 end

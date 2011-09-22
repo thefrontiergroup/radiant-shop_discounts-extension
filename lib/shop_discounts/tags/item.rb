@@ -16,7 +16,7 @@ module ShopDiscounts
         attr = tag.attr.symbolize_keys
         item = tag.locals.shop_line_item
 
-        Shop::Tags::Helpers.currency(item.discount, attr) if item.purchaseable?
+        Shop::Tags::Helpers.currency(item.per_item_discount, attr) if item.purchaseable?
       end
 
       desc %{ outputs the discounted of the current cart item }
@@ -25,7 +25,7 @@ module ShopDiscounts
         item = tag.locals.shop_line_item
 
         amount = if item.purchaseable?
-                   item.discount
+                   item.total_discount
                  else
                    item.item.discount_amount
                  end

@@ -46,7 +46,7 @@ describe ShopDiscounts::Tags::Item do
     describe '<r:shop:cart:item:discount />' do
       it 'should return the markdown of the item' do
         tag = %{<r:shop:cart:item:discount />}
-        exp = Shop::Tags::Helpers.currency(@line_item.discount)
+        exp = Shop::Tags::Helpers.currency(@line_item.per_item_discount)
 
         @page.should render(tag).as(exp)
       end

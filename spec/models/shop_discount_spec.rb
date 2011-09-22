@@ -157,6 +157,14 @@ describe ShopDiscount do
       discount.discount_amount.should == 2.10
     end
 
+    context 'amount is specified in currency' do
+      before { discount.update_attributes!(:amount_type => 'currency') }
+
+      it 'should return the total price of all products minus the discount' do
+        discount.discount_amount.should == 10
+      end
+    end
+
   end
 
   describe '#total_products_price_without_discount' do

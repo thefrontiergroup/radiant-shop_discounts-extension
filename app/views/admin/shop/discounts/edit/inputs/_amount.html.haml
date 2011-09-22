@@ -1,3 +1,5 @@
 %p.title
-  = f.label :amount, t('discount_amount')
+  = f.label :amount, t('discount_amount'), :style => 'display: inline-block'
+  as
+  = f.collection_select :amount_type, ShopDiscount::AMOUNT_TYPES, :to_s, :to_s
   = f.text_field :amount, :class => 'textbox', :maxlenth => 255

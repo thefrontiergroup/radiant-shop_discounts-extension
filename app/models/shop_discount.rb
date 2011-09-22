@@ -1,5 +1,7 @@
 class ShopDiscount < ActiveRecord::Base
 
+  AMOUNT_TYPES = %w[percentage currency]
+
   include ActionView::Helpers::NumberHelper
 
   # Return all discounts which are valid
@@ -29,6 +31,7 @@ class ShopDiscount < ActiveRecord::Base
   validates_uniqueness_of   :name
   validates_uniqueness_of   :code, :allow_blank => true
   validates_numericality_of :amount
+  validates_inclusion_of    :amount_type, :in => AMOUNT_TYPES
 
   # This will override the default scope
   def self.all_including_invalid(*attrs)
@@ -62,7 +65,10 @@ class ShopDiscount < ActiveRecord::Base
   end
 
   def discount_amount
-    (amount / 100.0) * total_price
+    case amount_type
+    when 'currency' then amount
+    else (amount / 100.0) * total_price
+    end
   end
   
   def total_price
