@@ -6,14 +6,17 @@ module ShopDiscounts
         base.class_eval do
 
           def discount
-            discount = BigDecimal.new('0.00')
-            discounts.map { |d| discount += d.amount }
+            discount = discounts.regular_discounts.sum(:amount)
 
             # Maximum discount is 100%
-            discount = [discount,BigDecimal.new('100.0')].min
+            discount = [discount, BigDecimal.new('100.0')].min
 
             # Convert to a percentage
             discount * BigDecimal.new('0.01')
+          end
+
+          def discounted?
+            discount > 0
           end
 
           def discounted

@@ -17,6 +17,7 @@ class ShopDiscountsExtension < Radiant::Extension
     end
     
     ShopLineItem.send :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::Purchaseable
+    ShopLineItemObserver.instance.send :add_observer!, ShopLineItem
     
     ShopProduct.send  :include, ShopDiscounts::Models::Discountable, ShopDiscounts::Models::ShopProduct
     ShopOrder.send    :include, ShopDiscounts::Models::OrderDiscountable, ShopDiscounts::Models::ShopOrder

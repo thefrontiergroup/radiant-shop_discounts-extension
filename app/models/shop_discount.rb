@@ -8,6 +8,7 @@ class ShopDiscount < ActiveRecord::Base
     { :now => Time.now }
   ]
   named_scope :package_discounts, :conditions => {:package => true}
+  named_scope :regular_discounts, :conditions => {:package => false}
 
   belongs_to  :created_by,  :class_name => 'User'
   belongs_to  :updated_by,  :class_name => 'User'
@@ -57,7 +58,7 @@ class ShopDiscount < ActiveRecord::Base
   # Returns the total price of all products that are associated with
   # the discount, the total price returned will not include the discount
   def total_products_price_without_discount
-    number_to_currency(products.sum(:price))
+    number_to_currency(total_price)
   end
 
   def discount_amount
@@ -66,6 +67,21 @@ class ShopDiscount < ActiveRecord::Base
   
   def total_price
     products.sum(:price)
+  end
+
+  # - The following methods are added so discounts can appear as line items
+  def price
+    -discount_amount
+  end
+
+  def url
+    '#'
+  end 
+  # -
+
+  # Shop Discounts can be line items, but are not purchaseable/modifiable
+  def purchaseable?
+    false
   end
 
 end

@@ -7,10 +7,6 @@ module ShopDiscounts
 
           after_save :apply_customer_discounts, :if => :customer_id_changed?
 
-          def all_discounts
-            (discounts + line_items.map(&:discounts)).flatten.uniq
-          end
-
           # Assigns discounts based off the customers discounts
           def apply_customer_discounts
             return if customer.nil?
@@ -19,8 +15,19 @@ module ShopDiscounts
             end
           end
 
-          def line_item_added(line_item)
-            create_applicable_package_discounts(line_item)
+          def update_package_discounts(line_item)
+            return unless line_item.purchaseable?
+
+            line_item.item.discounts.package_discounts.each do |discount|
+
+              if has_all_products_for_discount?(discount)
+                count_of_discounts = eligible_discount_count(discount)
+                create_or_update_discount(discount, count_of_discounts)
+              else
+                remove_discount(discount)
+              end
+
+            end
           end
 
           def line_item_removed(line_item)
@@ -36,10 +43,10 @@ module ShopDiscounts
           def possible_discounts
             discounts = Set.new
             line_items.each do |line_item|
+              next unless line_item.purchaseable?
+
               line_item.item.discounts.package_discounts.each do |discount|
-                unless has_all_products_for_discount?(discount)
-                  discounts << discount
-                end
+                discounts << discount unless has_all_products_for_discount?(discount)
               end
             end
             discounts
@@ -63,43 +70,52 @@ module ShopDiscounts
             end
           end
 
-          private
-
-          # TODO: These could use some optimization but are correct for now
-          def create_applicable_package_discounts(line_item_added)
-            applicable_discounts(line_item_added).each do |discount|
-              discount.products.each do |product|
-                line_items.find_by_item_id(product.id).discountables.create(:discount => discount)
-              end
-            end
-          end
+        private
 
           def remove_ineligible_package_discounts(line_item_removed)
             line_item_removed.item.discounts.each do |discount|
-              unless has_all_products_for_discount?(discount)
-                ShopDiscountable.delete_all [
-                  "discount_id = ? AND discounted_id IN (?) AND discounted_type = ?",
-                  discount.id,
-                  line_items.map(&:id),
-                  line_item_removed.class.to_s]
-              end
+              remove_discount(discount) unless has_all_products_for_discount?(discount)
             end
+          end
+
+          def remove_discount(discount)
+            ShopLineItem.delete_all ["item_id = ? AND order_id = ?", discount.id, id]
           end
 
           def applicable_discounts(line_item)
             applicable_discounts = Set.new
+
+            return applicable_discounts unless line_item.purchaseable?
+
             line_item.item.discounts.package_discounts.each do |discount|
               if has_all_products_for_discount?(discount)
                 applicable_discounts << discount
               end
             end
+
             applicable_discounts
           end
 
-          def has_all_products_for_discount?(discount)
-            discount.products.all? do |product|
-              line_items.exists?(:item_id => product.id)
+          def create_or_update_discount(discount, quantity)
+            if new_line_item = line_items.find_by_item_id(discount.id)
+              new_line_item.update_attributes!(:quantity => quantity)
+            else
+              line_items.create!(:item => discount, :quantity => quantity)
             end
+          end
+
+          def eligible_discount_count(discount)
+            product_ids = required_product_ids(discount)
+            line_items.minimum(:quantity, :conditions => {:item_id => product_ids})
+          end
+
+          def has_all_products_for_discount?(discount)
+            product_ids = required_product_ids(discount)
+            line_items.count(:conditions => {:item_id => product_ids}) == product_ids.size
+          end
+
+          def required_product_ids(discount)
+            discount.products.all(:select => 'shop_products.id').map(&:id)
           end
         end
       end

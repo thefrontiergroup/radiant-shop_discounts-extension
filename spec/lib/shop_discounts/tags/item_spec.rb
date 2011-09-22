@@ -14,7 +14,9 @@ describe ShopDiscounts::Tags::Item do
       'shop:cart:item:discounted',
       'shop:cart:item:rrp',
       'shop:cart:item:if_discounted',
-      'shop:cart:item:unless_discounted']
+      'shop:cart:item:unless_discounted',
+      'shop:cart:item:if_product',
+      'shop:cart:item:unless_product']
   end
 
   context 'page tags' do
@@ -87,6 +89,56 @@ describe ShopDiscounts::Tags::Item do
         it 'should not expand' do
           tag = %{<r:shop:cart:item:unless_discounted>failure</r:shop:cart:item:unless_discounted>}
           exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+    end
+
+    describe '<r:shop:cart:item:if_product/>' do
+      context 'item is a product' do
+
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:item:if_product>product</r:shop:cart:item:if_product>}
+          exp = %{product}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
+      context 'item is a discount' do
+        before do
+          @line_item = ShopLineItem.new(:item => shop_discounts(:bread_box_discount))
+        end
+
+        it 'does not expand the tag' do
+          tag = %{<r:shop:cart:item:if_product>product</r:shop:cart:item:if_product>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+    end
+
+    describe '<r:shop:cart:item:unless_product/>' do
+      context 'item is a product' do
+
+        it 'expands the tag' do
+          tag = %{<r:shop:cart:item:unless_product>product</r:shop:cart:item:unless_product>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+      end
+
+      context 'item is a discount' do
+        before do
+          @line_item = ShopLineItem.new(:item => shop_discounts(:bread_box_discount))
+        end
+
+        it 'does not expand the tag' do
+          tag = %{<r:shop:cart:item:unless_product>product</r:shop:cart:item:unless_product>}
+          exp = %{product}
 
           @page.should render(tag).as(exp)
         end
