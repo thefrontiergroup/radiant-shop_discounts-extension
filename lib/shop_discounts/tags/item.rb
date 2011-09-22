@@ -16,12 +16,7 @@ module ShopDiscounts
         attr = tag.attr.symbolize_keys
         item = tag.locals.shop_line_item
 
-        amount = if item.purchaseable?
-                   item.discount
-                 else
-                   item.discount_amount
-                 end
-        Shop::Tags::Helpers.currency(amount, attr)
+        Shop::Tags::Helpers.currency(item.discount, attr) if item.purchaseable?
       end
 
       desc %{ outputs the discounted of the current cart item }
@@ -29,7 +24,12 @@ module ShopDiscounts
         attr = tag.attr.symbolize_keys
         item = tag.locals.shop_line_item
 
-        Shop::Tags::Helpers.currency(item.discounted, attr)
+        amount = if item.purchaseable?
+                   item.discount
+                 else
+                   item.item.discount_amount
+                 end
+        Shop::Tags::Helpers.currency(amount, attr)
       end
 
       desc %{ outputs the rrp of the current cart item }

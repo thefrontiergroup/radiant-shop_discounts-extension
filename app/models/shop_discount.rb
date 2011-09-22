@@ -76,7 +76,7 @@ class ShopDiscount < ActiveRecord::Base
 
   def url
     '#'
-  end 
+  end
   # -
 
   # Shop Discounts can be line items, but are not purchaseable/modifiable
