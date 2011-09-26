@@ -42,9 +42,7 @@ module ShopDiscounts
           # some more products are added
           def possible_discounts
             discounts = Set.new
-            line_items.each do |line_item|
-              next unless line_item.purchaseable?
-
+            line_items.purchaseable.each do |line_item|
               line_item.item.discounts.package_discounts.each do |discount|
                 discounts << discount unless has_all_products_for_discount?(discount)
               end
@@ -100,7 +98,7 @@ module ShopDiscounts
             if new_line_item = line_items.find_by_item_id(discount.id)
               new_line_item.update_attributes!(:quantity => quantity)
             else
-              line_items.create!(:item => discount, :quantity => quantity)
+              line_items.create!(:item => discount, :quantity => quantity, :purchaseable => false)
             end
           end
 

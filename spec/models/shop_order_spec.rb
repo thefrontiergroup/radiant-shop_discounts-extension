@@ -51,6 +51,11 @@ describe ShopOrder do
           cart.line_items.should be_any { |line_item| line_item.item.is_a?(ShopDiscount) }
         end
 
+        it 'the line item is not purchaseable' do
+          line_item = cart.line_items.detect { |line_item| line_item.item.is_a?(ShopDiscount) }
+          line_item.purchaseable.should be_false
+        end
+
         it 'the discount has a quantity of 2' do
           cart.line_items.detect { |line_item| line_item.item.is_a?(ShopDiscount) }.quantity.should == 2
         end
@@ -102,6 +107,11 @@ describe ShopOrder do
 
           it 'includes a line item describing the discount' do
             cart.line_items.should be_any { |line_item| line_item.item.is_a?(ShopDiscount) }
+          end
+
+          it 'the line item is not purchaseable' do
+            line_item = cart.line_items.detect { |line_item| line_item.item.is_a?(ShopDiscount) }
+            line_item.purchaseable.should be_false
           end
 
           context 'and crusty bread is removed' do
