@@ -97,12 +97,8 @@ describe ShopOrder do
         context 'and soft bread is added' do
           let!(:soft_bread) { cart.line_items.create :item => shop_products(:soft_bread), :quantity => 1, :item_price => 19 }
 
-          it '#possible_discounts does not contains the bread box discount' do
-            cart.possible_discounts.should_not include bread_box_discount
-          end
-
-          it '#possible_discounts? returns false' do
-            cart.possible_discounts?.should be_false
+          it '#possible_discounts is empty' do
+            cart.possible_discounts.should be_empty
           end
 
           it 'includes a line item describing the discount' do

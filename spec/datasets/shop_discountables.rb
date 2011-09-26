@@ -37,6 +37,16 @@ class ShopDiscountablesDataset < Dataset::Base
       :discount_id     => shop_discounts(:bread_box_discount).id,
       :discounted_id   => shop_products(:soft_bread).id,
       :discounted_type => shop_products(:soft_bread).class.name
+
+    create_record :shop_discountables, :soggy_bread_discount_crusty_bread,
+      :discount_id     => shop_discounts(:soggy_bread_discount).id,
+      :discounted_id   => shop_products(:crusty_bread).id,
+      :discounted_type => shop_products(:crusty_bread).class.name
+
+    create_record :shop_discountables, :soggy_bread_discount_full_milk,
+      :discount_id     => shop_discounts(:soggy_bread_discount).id,
+      :discounted_id   => shop_products(:full_milk).id,
+      :discounted_type => shop_products(:full_milk).class.name
   end
     
 end

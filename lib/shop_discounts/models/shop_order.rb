@@ -42,11 +42,16 @@ module ShopDiscounts
           # some more products are added
           def possible_discounts
             discounts = Set.new
+
+            discounted_ids = line_items.unpurchaseable.map {|line_item| line_item.item.products.map(&:id)}.flatten.compact.uniq
             line_items.purchaseable.each do |line_item|
+              next if discounted_ids.include?(line_item.item.id)
+
               line_item.item.discounts.package_discounts.each do |discount|
-                discounts << discount unless has_all_products_for_discount?(discount)
+                discounts << discount
               end
             end
+
             discounts
           end
 

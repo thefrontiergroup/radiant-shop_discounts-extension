@@ -35,6 +35,11 @@ class ShopDiscountsDataset < Dataset::Base
       :amount      => 3,
       :amount_type => 'currency',
       :package     => true
+
+    create_record :shop_discounts, :soggy_bread_discount,
+      :name        => 'soggy bread',
+      :amount      => 10,
+      :package     => true
   end
   
 end
