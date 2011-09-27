@@ -199,7 +199,7 @@ describe ShopDiscounts::Tags::Item do
 
       context 'item is a discount' do
         before do
-          @line_item = ShopLineItem.new(:item => shop_discounts(:bread_box_discount))
+          @line_item = ShopLineItem.new(:item => shop_discounts(:bread_box_discount), :purchaseable => false)
         end
 
         it 'does not expand the tag' do
@@ -224,7 +224,7 @@ describe ShopDiscounts::Tags::Item do
 
       context 'item is a discount' do
         before do
-          @line_item = ShopLineItem.new(:item => shop_discounts(:bread_box_discount))
+          @line_item = ShopLineItem.new(:item => shop_discounts(:bread_box_discount), :purchaseable => false)
         end
 
         it 'does not expand the tag' do
