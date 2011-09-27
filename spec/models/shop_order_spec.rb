@@ -110,6 +110,14 @@ describe ShopOrder do
             line_item.purchaseable.should be_false
           end
 
+          context 'and full milk is added' do
+            let!(:full_milk) { cart.line_items.create :item => shop_products(:full_milk), :quantity => 1, :item_price => 19 }
+
+            it 'does not double up on package discounts' do
+              cart.line_items.all.count { |line_item| line_item.item.is_a?(ShopDiscount) }.should == 1
+            end
+          end
+
           context 'and crusty bread is removed' do
             before do
               cart.line_items.destroy(crusty_bread)

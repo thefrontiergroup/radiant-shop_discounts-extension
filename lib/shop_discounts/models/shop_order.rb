@@ -22,11 +22,10 @@ module ShopDiscounts
 
               if has_all_products_for_discount?(discount)
                 count_of_discounts = eligible_discount_count(discount)
-                create_or_update_discount(discount, count_of_discounts)
+                create_or_update_discount(discount, count_of_discounts, line_item)
               else
                 remove_discount(discount)
               end
-
             end
           end
 
@@ -43,8 +42,11 @@ module ShopDiscounts
           def possible_discounts
             discounts = Set.new
 
-            discounted_ids = line_items.unpurchaseable.map {|line_item| line_item.item.products.map(&:id)}.flatten.compact.uniq
+            discounted_ids = package_discounted_product_ids
             line_items.purchaseable.each do |line_item|
+
+              # Line items that already have packaged discounts are not
+              # eligible for more
               next if discounted_ids.include?(line_item.item.id)
 
               line_item.item.discounts.package_discounts.each do |discount|
@@ -75,6 +77,22 @@ module ShopDiscounts
 
         private
 
+          def conflicts_with_existing_package_discount?(discount)
+            !(package_discounted_product_ids & required_product_ids(discount)).empty?
+          end
+
+          def package_discounted_product_ids
+            product_ids = Set.new
+
+            line_items.unpurchaseable.each do |line_item|
+              line_item.item.products.all(:select => 'shop_products.id').each do |product|
+                product_ids << product.id
+              end
+            end
+
+            product_ids
+          end
+
           def remove_ineligible_package_discounts(line_item_removed)
             line_item_removed.item.discounts.each do |discount|
               remove_discount(discount) unless has_all_products_for_discount?(discount)
@@ -99,10 +117,10 @@ module ShopDiscounts
             applicable_discounts
           end
 
-          def create_or_update_discount(discount, quantity)
+          def create_or_update_discount(discount, quantity, line_item)
             if new_line_item = line_items.find_by_item_id(discount.id)
               new_line_item.update_attributes!(:quantity => quantity)
-            else
+            elsif !conflicts_with_existing_package_discount?(discount)
               line_items.create!(:item => discount, :quantity => quantity, :purchaseable => false)
             end
           end
