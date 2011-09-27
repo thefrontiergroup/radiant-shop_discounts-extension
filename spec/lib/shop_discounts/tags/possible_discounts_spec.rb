@@ -65,7 +65,7 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
 
     context 'when the current shopping cart has possible discounts' do
 
-      let!(:crusty_bread) { cart.line_items.create :item => shop_products(:crusty_bread), :quantity => 1, :item_price => 13 }
+      let!(:soft_bread) { cart.line_items.create :item => shop_products(:soft_bread), :quantity => 1, :item_price => 13 }
 
       describe 'shop:cart:if_possible_discount' do
         it 'expands the tag' do
@@ -106,7 +106,7 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
       describe 'shop:cart:possible_discounts:each:eligible_products:description' do
         it 'expands the tag' do
           tag = %{<r:shop:cart:possible_discounts:each:eligible_products><r:description/></r:shop:cart:possible_discounts:each:eligible_products>}
-          exp = %{crusty bread}
+          exp = %{soft bread}
 
           @page.should render(tag).as(exp)
         end
@@ -160,7 +160,7 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
       describe 'shop:cart:possible_discounts:each:products:each:product_name' do
         it 'expands the tag' do
           tag = %{<r:shop:cart:possible_discounts:each:products:each><r:name/></r:shop:cart:possible_discounts:each:products:each>}
-          exp = 'soft bread'
+          exp = 'crusty bread'
 
           @page.should render(tag).as(exp)
         end
@@ -169,7 +169,7 @@ describe ShopDiscounts::Tags::PossibleDiscounts do
       describe 'shop:cart:possible_discounts:each:products:each:product_price' do
         it 'expands the tag' do
           tag = %{<r:shop:cart:possible_discounts:each:products:each><r:price/></r:shop:cart:possible_discounts:each:products:each>}
-          exp = '$10'
+          exp = '$11'
 
           @page.should render(tag).as(exp)
         end

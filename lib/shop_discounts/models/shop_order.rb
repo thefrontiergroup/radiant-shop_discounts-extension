@@ -78,7 +78,7 @@ module ShopDiscounts
         private
 
           def conflicts_with_existing_package_discount?(discount)
-            !(package_discounted_product_ids & required_product_ids(discount)).empty?
+            (package_discounted_product_ids & required_product_ids(discount)).present?
           end
 
           def package_discounted_product_ids
