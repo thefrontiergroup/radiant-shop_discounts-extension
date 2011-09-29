@@ -7,7 +7,7 @@ class ShopDiscountableOrder < ShopDiscountable
   
   # Adds discount to an order's line_items
   def create_shop_line_items
-    discounted.line_items.each do |line_item|
+    discounted.line_items.purchaseable.each do |line_item|
       if line_item.item.discounts.include?(discount)
         # We're here if the item associated with the line item can be discounted
         discount = ShopDiscountable.create(:discount_id => discount_id, :discounted => line_item)
