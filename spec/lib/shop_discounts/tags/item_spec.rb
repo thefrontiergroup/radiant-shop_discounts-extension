@@ -101,6 +101,15 @@ describe ShopDiscounts::Tags::Item do
           @page.should render(tag).as(exp)
         end
 
+        it 'should expand if the code matches but is not in the same case' do
+          code = @line_item.discounts.first.code
+          @line_item.update_attributes(:discount_code => code.upcase)
+          tag = %{<r:shop:cart:item:if_discounted_with_code>success</r:shop:cart:item:if_discounted_with_code>}
+          exp = %{success}
+
+          @page.should render(tag).as(exp)
+        end
+
       end
 
       context 'item is not discounted' do
@@ -144,6 +153,16 @@ describe ShopDiscounts::Tags::Item do
 
           @page.should render(tag).as(exp)
         end
+
+        it 'should not expand if the code matches but is not in the same case' do
+          code = @line_item.discounts.first.code
+          @line_item.update_attributes(:discount_code => code.upcase)
+          tag = %{<r:shop:cart:item:unless_discounted_with_code>failure</r:shop:cart:item:unless_discounted_with_code>}
+          exp = %{}
+
+          @page.should render(tag).as(exp)
+        end
+
 
       end
 

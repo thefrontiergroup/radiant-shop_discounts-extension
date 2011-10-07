@@ -39,7 +39,17 @@ describe ShopDiscount do
         @other.valid?.should === false
       end
     end
-    
+
+    context 'before validation' do
+      describe '#downcase_code' do
+        it 'should downcase the code before saving' do
+          discount = ShopDiscount.new(:code => 'HELLO')
+          discount.valid?
+          discount.code.should == 'hello'
+        end
+      end
+    end
+
     context 'code' do
       it 'should require' do
         pending

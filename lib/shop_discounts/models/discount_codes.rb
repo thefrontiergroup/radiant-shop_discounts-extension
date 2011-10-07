@@ -11,7 +11,7 @@ module ShopDiscounts
       def add_discount_code
         if discounts.blank? && discount_code.present?
           # discount = ShopDiscount.find(:first, :conditions => { :code => discount_code })
-          discountable = item.discountables.find(:first, :joins => :discount, :conditions => { :shop_discounts => { :code => discount_code } })
+          discountable = item.discountables.find(:first, :joins => :discount, :conditions => { :shop_discounts => { :code => discount_code.downcase } })
           if discountable.present?
             discounts << discountable.discount
           end

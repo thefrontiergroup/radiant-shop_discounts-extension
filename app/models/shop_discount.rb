@@ -27,6 +27,8 @@ class ShopDiscount < ActiveRecord::Base
   has_many    :discountables_orders,      :class_name => 'ShopDiscountableOrder',    :foreign_key  => :discount_id
   has_many    :orders,      :through => :discountables_orders, :source => :order, :conditions => "shop_discountables.discounted_type = 'ShopOrder'"
 
+  before_validation :downcase_code
+
   validates_presence_of     :name, :amount
   validates_uniqueness_of   :name
   validates_uniqueness_of   :code, :allow_blank => true
@@ -84,5 +86,11 @@ class ShopDiscount < ActiveRecord::Base
     '#'
   end
   # -
+
+  private
+
+  def downcase_code
+    self.code = self.code.downcase if self.code.present?
+  end
 
 end

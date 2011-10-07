@@ -53,14 +53,14 @@ module ShopDiscounts
       tag 'shop:cart:item:if_discounted_with_code' do |tag|
         item = tag.locals.shop_line_item
 
-        tag.expand if item.discount_code.present? && item.discounts.any? { |discount| discount.code == item.discount_code }
+        tag.expand if item.discount_code.present? && item.discounts.any? { |discount| discount.code.try(:downcase) == item.discount_code.try(:downcase) }
       end
 
       desc %{ expands if the item does not have a discount applied with a discount code }
       tag 'shop:cart:item:unless_discounted_with_code' do |tag|
         item = tag.locals.shop_line_item
 
-        tag.expand unless item.discount_code.present? && item.discounts.any? { |discount| discount.code == item.discount_code }
+        tag.expand unless item.discount_code.present? && item.discounts.any? { |discount| discount.code.try(:downcase) == item.discount_code.try(:downcase) }
       end
 
       desc %{ expands if the item has a discount}
