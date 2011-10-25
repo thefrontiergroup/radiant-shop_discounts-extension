@@ -12,6 +12,7 @@ describe ShopDiscounts::Tags::Item do
       'shop:cart:item:value',
       'shop:cart:item:discount',
       'shop:cart:item:discounted',
+      'shop:cart:item:discounted_product_price',
       'shop:cart:item:rrp',
       'shop:cart:item:if_discounted',
       'shop:cart:item:unless_discounted',
@@ -49,6 +50,29 @@ describe ShopDiscounts::Tags::Item do
         exp = Shop::Tags::Helpers.currency(@line_item.per_item_discount)
 
         @page.should render(tag).as(exp)
+      end
+    end
+
+    describe '<r:shop:cart:item:discounted_product_price />' do
+      context 'when there is a discount applied' do
+        it 'should return the discounted price of a single item' do
+          code = @line_item.discounts.first.code
+          @line_item.update_attributes(:discount_code => code.upcase, :quantity => 2)
+          tag = %{<r:shop:cart:item:discounted_product_price />}
+          exp = '$10' # RRP is $11
+
+          @page.should render(tag).as(exp)
+        end
+      end
+      context 'when no discount is applied' do
+        it 'should return the discounted price of a single item' do
+          @line_item.update_attributes(:quantity => 9)
+          @line_item.discounts.destroy_all
+          tag = %{<r:shop:cart:item:discounted_product_price />}
+          exp = '$11' # RRP is $11
+
+          @page.should render(tag).as(exp)
+        end
       end
     end
 

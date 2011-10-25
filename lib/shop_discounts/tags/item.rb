@@ -19,6 +19,14 @@ module ShopDiscounts
         Shop::Tags::Helpers.currency(item.per_item_discount, attr) if item.purchaseable?
       end
 
+      desc %{ outputs the discounted product price of the cart item }
+      tag "shop:cart:item:discounted_product_price" do |tag|
+        attr = tag.attr.symbolize_keys
+        item = tag.locals.shop_line_item
+
+        Shop::Tags::Helpers.currency(item.discounted_price, attr)
+      end
+
       desc %{ outputs the discounted of the current cart item }
       tag "shop:cart:item:discounted" do |tag|
         attr = tag.attr.symbolize_keys
