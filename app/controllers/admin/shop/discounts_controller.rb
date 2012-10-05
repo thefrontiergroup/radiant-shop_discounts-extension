@@ -20,6 +20,7 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
     end
 
     def config_index
+      @shop_discounts = ShopDiscount.all_including_invalid
       @buttons  << 'new_discount'
     end
 
