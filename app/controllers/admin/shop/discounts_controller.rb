@@ -1,5 +1,5 @@
 class Admin::Shop::DiscountsController < Admin::ResourceController
-  
+
   model_class ShopDiscount
 
   before_filter :config_global
@@ -8,9 +8,9 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
   before_filter :config_edit,   :only => [ :edit, :update ]
   before_filter :assets_global, :except => [ :remove, :destroy ]
   before_filter :assets_edit,   :only => [ :edit, :update ]
-  
+
   private
-  
+
     def config_global
       @inputs   ||= []
       @meta     ||= []
@@ -18,54 +18,62 @@ class Admin::Shop::DiscountsController < Admin::ResourceController
       @parts    ||= []
       @popups   ||= []
     end
-    
+
     def config_index
       @buttons  << 'new_discount'
     end
-    
+
     def config_new
       @inputs   << 'name'
       @inputs   << 'amount'
       @inputs   << 'code'
       @inputs   << 'packages'
       # @inputs   << 'code'
-      
-      # @meta     << 'start'
-      # @meta     << 'finish'
+
+      @meta     << 'start'
+      @meta     << 'finish'
     end
-    
+
     def config_edit
       @buttons  << 'browse_categories'
       @buttons  << 'browse_products'
       @buttons  << 'browse_users'
-      
+
       @inputs   << 'name'
       @inputs   << 'amount'
       @inputs   << 'code'
       @inputs   << 'packages'
       # @inputs   << 'code'
-      
-      # @meta     << 'start'
-      # @meta     << 'finish'
-      
+
+      @meta     << 'start'
+      @meta     << 'finish'
+
       @parts    << 'categories'
       @parts    << 'products'
       @parts    << 'users'
-      
+
       @popups   << 'browse_categories'
       @popups   << 'browse_products'
       @popups   << 'browse_users'
     end
-    
+
     def assets_global
       include_stylesheet 'admin/extensions/shop/edit'
       include_stylesheet 'admin/extensions/shop/index'
     end
-    
+
     def assets_edit
       include_javascript 'admin/extensions/shop/edit'
       include_javascript 'admin/extensions/shop/discounts/edit'
       include_stylesheet 'admin/extensions/shop/discounts/edit'
     end
-    
+
+    def load_model
+      self.model = if params[:id]
+        ShopDiscount.all_including_invalid( :conditions => {:id => params[:id]} ).first
+      else
+        ShopDiscount.new()
+      end
+    end
+
 end
